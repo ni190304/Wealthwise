@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:wealthwise/info2.dart';
-import 'package:wealthwise/tutor/educator_scr.dart';
+import 'package:wealthwise/TUTOR/educator_scr.dart';
 import 'package:wealthwise/user_scr.dart';
 import 'package:wealthwise/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';

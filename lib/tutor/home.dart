@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:wealthwise/tutor/finances/budget.dart';
-import 'package:wealthwise/tutor/finances/budget1.dart';
-import 'package:wealthwise/tutor/finances/debt.dart';
-import 'package:wealthwise/tutor/finances/invest.dart';
-import 'package:wealthwise/tutor/finances/tax.dart';
+import 'Home/budget1.dart';
+import 'Home/debt1.dart';
+import 'Home/invest1.dart';
+import 'Home/tax1.dart';
 
 class TutorHome extends StatefulWidget {
   const TutorHome({super.key});
@@ -15,17 +14,16 @@ class TutorHome extends StatefulWidget {
 
 class _TutorHomeState extends State<TutorHome> {
   PageController _pageController = PageController();
-  int currentIndex = 0; // Moved currentIndex into the state class
+  int currentIndex = 0;
 
   void _onTabTapped(int index) {
     setState(() {
       currentIndex = index;
-      _pageController
-          .jumpToPage(index); // Update the PageView's page when tab is changed
+      _pageController.jumpToPage(index);
     });
   }
 
-  List<Widget> screens = [Budget1(), Invest(), Debt(), Tax()];
+  List<Widget> screens = [Budget1(), Invest1(), Debt1(), Tax1()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,7 @@ class _TutorHomeState extends State<TutorHome> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(
-            height: 15,
+            height: 5,
           ),
           GNav(
             backgroundColor: Colors.white,

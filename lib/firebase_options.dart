@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAxhBTT9U43sH6xBN7xNDY13B6xOxFd31g',
-    appId: '1:914907534698:android:35b44a517200223424c113',
-    messagingSenderId: '914907534698',
-    projectId: 'wealthwise-739c2',
-    storageBucket: 'wealthwise-739c2.appspot.com',
+    apiKey: 'AIzaSyD_mcLZTDjop7Xi-j0FiuzuvuP6NJhkvdw',
+    appId: '1:52712882063:android:fa26346e52821121abd5fa',
+    messagingSenderId: '52712882063',
+    projectId: 'wealth-wise-14903',
+    storageBucket: 'wealth-wise-14903.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCuGm_FMN9QQr2osszuBujHDaTPGDPuh6c',
-    appId: '1:914907534698:ios:0e80dcbd0a784fcd24c113',
-    messagingSenderId: '914907534698',
-    projectId: 'wealthwise-739c2',
-    storageBucket: 'wealthwise-739c2.appspot.com',
-    iosClientId: '914907534698-nk3um0qrt9usj60oqt57bbtlljq77vtd.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDtelPiH-VL2LwGFnJsTGCgte1DM185VB4',
+    appId: '1:52712882063:ios:c6dd4d21ba0dc415abd5fa',
+    messagingSenderId: '52712882063',
+    projectId: 'wealth-wise-14903',
+    storageBucket: 'wealth-wise-14903.appspot.com',
+    iosClientId: '52712882063-9mk756sdgna7l99rcdj7o1duvtq7k6ka.apps.googleusercontent.com',
     iosBundleId: 'com.example.wealthwise',
   );
 }

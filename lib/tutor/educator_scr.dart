@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:wealthwise/tutor/home.dart';
-import 'package:wealthwise/tutor/settings.dart';
-import 'package:wealthwise/tutor/your_videos.dart';
+import 'package:wealthwise/TUTOR/home.dart';
+import 'package:wealthwise/neubox1.dart';
+import 'package:wealthwise/settings.dart';
+import 'package:wealthwise/TUTOR/your_videos.dart';
 
 import 'videoupload.dart';
 
@@ -132,11 +132,13 @@ class _TutorScreenState extends State<TutorScreen> {
               Container(
                 // color: Theme.of(context).colorScheme.primary,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 7, top: 10),
+                  padding: const EdgeInsets.only(left: 0, top: 15),
                   child: ListTile(
-                    leading: const Icon(
-                      Icons.clear,
-                      color: Colors.black,
+                    leading: const Neubox2(
+                      child: Icon(
+                        Icons.clear_outlined,
+                        color: Colors.black,
+                      ),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -144,6 +146,36 @@ class _TutorScreenState extends State<TutorScreen> {
                   ),
                 ),
               ),
+              // Text('Hello')
+              CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.black,
+                  child: FutureBuilder<String?>(
+                    future: user_dp_future, // Use the Future here
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const SizedBox(
+                          height: 10,
+                          width: 10,
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                          ),
+                        ); // Show a loading indicator while fetching the image URL
+                      } else if (snapshot.hasData && snapshot.data != null) {
+                        return ClipOval(
+                          child: Image.network(
+                            snapshot.data!,
+                            fit: BoxFit.cover,
+                            height: 117,
+                            width: 117,
+                          ),
+                        ); // Display the image if available
+                      } else {
+                        return const Text(
+                            '!'); // Display a message if the image is not available
+                      }
+                    },
+                  )),
             ],
           ),
         ),
@@ -309,9 +341,9 @@ class _TutorScreenState extends State<TutorScreen> {
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_outlined,
-                size: 29,
+                size: 23,
               ),
-              label: '',
+              label: 'Home',
               activeIcon: Icon(
                 Icons.home,
                 size: 29,
@@ -320,9 +352,9 @@ class _TutorScreenState extends State<TutorScreen> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.video_collection_outlined,
-              size: 29,
+              size: 23,
             ),
-            label: '',
+            label: 'Your Videos',
             activeIcon: Icon(
               Icons.video_collection,
               size: 29,
@@ -331,9 +363,9 @@ class _TutorScreenState extends State<TutorScreen> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.settings_outlined,
-              size: 29,
+              size: 23,
             ),
-            label: '',
+            label: 'Settings',
             activeIcon: Icon(
               Icons.settings,
               size: 29,

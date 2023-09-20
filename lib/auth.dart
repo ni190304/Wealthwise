@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+
 
 final _firebase = FirebaseAuth.instance;
 
@@ -68,7 +70,7 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   File? user_image_file;
-  
+
   void pickImagecam() async {
     final userImage = await ImagePicker()
         .pickImage(source: ImageSource.camera, maxWidth: 150, imageQuality: 80);
@@ -113,6 +115,8 @@ class _AuthScreenState extends State<AuthScreen> {
 
   final _emailnode = FocusNode();
 
+  // bool _is_val = true;
+
   final _email_controller = TextEditingController();
   final _username_controller = TextEditingController();
   final _password_controller = TextEditingController();
@@ -129,6 +133,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _formkey = GlobalKey<FormState>();
 
   void submitDetails() async {
+    // final email = FirebaseAuth.instance.currentUser!.email;
     final _isvalid = _formkey.currentState!.validate();
 
     if (!_isvalid) {
@@ -176,6 +181,11 @@ class _AuthScreenState extends State<AuthScreen> {
             .child(email!)
             .child('profile')
             .child('$email.jpg');
+
+        await FirebaseFirestore.instance
+            .collection('Usernames')
+            .doc(email)
+            .set({'username': entered_user});
 
         final upload_task = user_images.putFile(user_image_file!);
 
@@ -285,24 +295,67 @@ class _AuthScreenState extends State<AuthScreen> {
                     child: Column(
                       children: [
                         Form(
-                            key: _formkey,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
+                          // autovalidateMode: _is_val
+                          //     ? AutovalidateMode
+                          //         .disabled // Show validation errors if _showValidation is true
+                          //     : AutovalidateMode
+                          //         .always, // Hide validation errors if _showValidation is false
+                          key: _formkey,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TextFormField(
+                                // autovalidateMode: AutovalidateMode.onUserInteractio,
+                                focusNode: _emailnode,
+                                controller: _email_controller,
+                                style: namestyle4(),
+                                decoration: InputDecoration(
+                                  labelText: 'Email',
+                                  labelStyle: namestyle5(),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty || !value.contains('@')) {
+                                    return 'Invalid email';
+                                  }
+                                  if (RegExp(r'[A-Z]').hasMatch(value)) {
+                                    return "Email can't have uppercase letters";
+                                  }
+
+                                  if (value.contains(' ')) {
+                                    return 'Invalid credentials';
+                                  }
+
+                                  return null;
+                                },
+                                autocorrect: true,
+                                textCapitalization: TextCapitalization.none,
+                                keyboardType: TextInputType.emailAddress,
+                                keyboardAppearance: Brightness.dark,
+                                onSaved: (newValue) {
+                                  entered_email = newValue!;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              if (!_isLogin)
                                 TextFormField(
-                                  focusNode: _emailnode,
-                                  controller: _email_controller,
+                                  controller: _username_controller,
                                   style: namestyle4(),
                                   decoration: InputDecoration(
-                                      labelText: 'Email',labelStyle: namestyle5()
-                                      ),
+                                    labelText: 'Username',
+                                    labelStyle: namestyle5(),
+                                  ),
                                   validator: (value) {
-                                    if (value!.isEmpty ||
-                                        !value.contains('@')) {
-                                      return 'Invalid email';
+                                    if (!RegExp(r'\d').hasMatch(value!)) {
+                                      return 'Username must contain a digit';
                                     }
+                                    if (value.trim().length < 4) {
+                                      return 'Username must contain at least 4 characters';
+                                    }
+
                                     if (RegExp(r'[A-Z]').hasMatch(value)) {
-                                      return "Email can't have uppercase letters";
+                                      return "Username can't have uppercase letters";
                                     }
 
                                     if (value.contains(' ')) {
@@ -313,82 +366,52 @@ class _AuthScreenState extends State<AuthScreen> {
                                   },
                                   autocorrect: true,
                                   textCapitalization: TextCapitalization.none,
-                                  keyboardType: TextInputType.emailAddress,
-                                  keyboardAppearance: Brightness.dark,
+                                  keyboardType: TextInputType.name,
                                   onSaved: (newValue) {
-                                    entered_email = newValue!;
+                                    entered_user = newValue!;
                                   },
                                 ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                if (!_isLogin)
-                                  TextFormField(
-                                    controller: _username_controller,
-                                    style: namestyle4(),
-                                    decoration: InputDecoration(
-                                        labelText: 'Username',
-                                        labelStyle: namestyle5(),
-                                        ),
-                                    validator: (value) {
-                                      if (!RegExp(r'\d').hasMatch(value!)) {
-                                        return 'Username must contain a digit';
-                                      }
-                                      if (value.trim().length < 4) {
-                                        return 'Username must contain at least 4 characters';
-                                      }
-
-                                      if (value.contains(' ')) {
-                                        return 'Invalid credentials';
-                                      }
-
-                                      return null;
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              TextFormField(
+                                controller: _password_controller,
+                                style: namestyle4(),
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  labelStyle: namestyle5(),
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        visibility_off = !visibility_off;
+                                      });
                                     },
-                                    autocorrect: true,
-                                    textCapitalization: TextCapitalization.none,
-                                    keyboardType: TextInputType.name,
-                                    onSaved: (newValue) {
-                                      entered_user = newValue!;
-                                    },
+                                    child: Icon(visibility_off
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
                                   ),
-                                const SizedBox(
-                                  height: 5,
                                 ),
-                                TextFormField(
-                                  controller: _password_controller,
-                                  style: namestyle4(),
-                                  decoration: InputDecoration(
-                                      labelText: 'Password',
-                                      labelStyle: namestyle5(),
-                                      suffixIcon: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              visibility_off = !visibility_off;
-                                            });
-                                          },
-                                          child: Icon(visibility_off
-                                              ? Icons.visibility
-                                              : Icons.visibility_off)),),
-                                  validator: (value) {
-                                    if (value!.trim().length < 6) {
-                                      return 'Password must contain at least 6 characters';
-                                    }
+                                validator: (value) {
+                                  if (value!.trim().length < 6) {
+                                    return 'Password must contain at least 6 characters';
+                                  }
 
-                                    if (value.contains(' ')) {
-                                      return 'Invalid credentials';
-                                    }
+                                  if (value.contains(' ')) {
+                                    return 'Invalid credentials';
+                                  }
 
-                                    return null;
-                                  },
-                                  autocorrect: false,
-                                  textCapitalization: TextCapitalization.none,
-                                  obscureText: visibility_off,
-                                  onSaved: (newValue) {
-                                    entered_pass = newValue!;
-                                  },
-                                )
-                              ],
-                            )),
+                                  return null;
+                                },
+                                autocorrect: false,
+                                textCapitalization: TextCapitalization.none,
+                                obscureText: visibility_off,
+                                onSaved: (newValue) {
+                                  entered_pass = newValue!;
+                                },
+                              )
+                            ],
+                          ),
+                        ),
                         const SizedBox(
                           height: 25,
                         ),

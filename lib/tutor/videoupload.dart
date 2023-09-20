@@ -8,7 +8,9 @@ import 'package:lottie/lottie.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wealthwise/tutor/videcat.dart';
+import 'package:wealthwise/videcat.dart';
+import 'package:wealthwise/neubox1.dart';
+import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 
 class VideoUpload extends StatefulWidget {
   const VideoUpload({super.key});
@@ -57,7 +59,7 @@ TextStyle namestyle5() {
   return GoogleFonts.playfairDisplay(
     textStyle: const TextStyle(
       color: Colors.black,
-      fontSize: 25,
+      fontSize: 28,
       fontWeight: FontWeight.bold,
     ),
   );
@@ -143,6 +145,16 @@ class _VideoUploadState extends State<VideoUpload> {
     });
   }
 
+  void back() {
+    setState(() {
+      _videoPlayerController?.dispose();
+      setState(() {
+        isPlayingVideo = false;
+      });
+    });
+    Navigator.pop(context);
+  }
+
   Future<void> _updateDebtCounter() async {
     final currentemail = FirebaseAuth.instance.currentUser!.email;
 
@@ -193,6 +205,28 @@ class _VideoUploadState extends State<VideoUpload> {
     });
   }
 
+  Future<void> compressVideo(String inputPath, String email) async {
+    final FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
+
+    // Define the output path for the compressed video (with a new filename)
+    final outputPath =
+        'video__${email}_${selected_category?.title}_${selected_category?.title == 'Budgeting' ? a - 1 : selected_category?.title == 'Investing and Saving' ? b - 1 : selected_category?.title == 'Debt Management' ? c - 1 : d - 1}.mp4'; // Replace with your desired path and filename
+
+    final arguments = [
+      '-i', inputPath, // Input video file path
+      '-vf', 'scale=640:480', // Set the desired resolution (e.g., 640x480)
+      '-b:v', '1M', // Set the target video bitrate (adjust as needed)
+      outputPath, // Output compressed video file path
+    ];
+
+    final result = await _flutterFFmpeg.executeWithArguments(arguments);
+    if (result == 0) {
+      print('Video compression successful');
+    } else {
+      print('Video compression failed');
+    }
+  }
+
   void videoupload() async {
     final isvalid = _videokey.currentState!.validate();
 
@@ -223,11 +257,13 @@ class _VideoUploadState extends State<VideoUpload> {
     }
 
     final budgetvideoFilename =
-        'video__${currentemail}_${selected_category?.title}_${selected_category?.title == 'Budgeting' ? a -1  : selected_category?.title == 'Investing and Saving' ? b -1 : selected_category?.title == 'Debt Management' ? c - 1 : d - 1}.mp4';
+        'video__${currentemail}_${selected_category?.title}_${selected_category?.title == 'Budgeting' ? a - 1 : selected_category?.title == 'Investing and Saving' ? b - 1 : selected_category?.title == 'Debt Management' ? c - 1 : d - 1}.mp4';
+
+    await compressVideo(budgetvideoFilename, currentemail!);
 
     final videosReference = await FirebaseStorage.instance
         .ref()
-        .child(currentemail!)
+        .child(currentemail)
         .child('videos')
         .child(selected_category!.title)
         .child(budgetvideoFilename);
@@ -318,14 +354,28 @@ class _VideoUploadState extends State<VideoUpload> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_rounded)),
-        title: Text(
-          'Upload a video',
-          style: namestyle5(),
+        leading:
+            // IconButton(onPressed: back, icon: Icon(Icons.arrow_back_rounded)),
+            Row(
+          children: [
+            SizedBox(
+              width: 6,
+            ),
+            GestureDetector(
+                onTap: back,
+                child: Neubox2(child: Icon(Icons.arrow_back_rounded))),
+          ],
+        ),
+        title: Row(
+          children: [
+            SizedBox(
+              width: 32,
+            ),
+            Text(
+              'Upload a video',
+              style: namestyle5(),
+            ),
+          ],
         ),
       ),
       body: Center(
@@ -346,7 +396,7 @@ class _VideoUploadState extends State<VideoUpload> {
                           ),
                         ),
                       )
-                    : const Text('Hi'),
+                    : const Text(''),
               ),
               ElevatedButton.icon(
                 onPressed: pickvideocam,

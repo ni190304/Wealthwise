@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "914907534698",
-    "project_id": "wealthwise-739c2",
-    "storage_bucket": "wealthwise-739c2.appspot.com"
+    "project_number": "52712882063",
+    "project_id": "wealth-wise-14903",
+    "storage_bucket": "wealth-wise-14903.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:914907534698:android:35b44a517200223424c113",
+        "mobilesdk_app_id": "1:52712882063:android:fa26346e52821121abd5fa",
         "android_client_info": {
           "package_name": "com.example.wealthwise"
         }
       },
       "oauth_client": [
         {
-          "client_id": "914907534698-9hs1kuu4u69dt91upn3cfefunkffm2dg.apps.googleusercontent.com",
+          "client_id": "52712882063-gtqkelou7qkt6ej4ga76g3bag5d99erp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAxhBTT9U43sH6xBN7xNDY13B6xOxFd31g"
+          "current_key": "AIzaSyD_mcLZTDjop7Xi-j0FiuzuvuP6NJhkvdw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "914907534698-9hs1kuu4u69dt91upn3cfefunkffm2dg.apps.googleusercontent.com",
+              "client_id": "52712882063-gtqkelou7qkt6ej4ga76g3bag5d99erp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "52712882063-9mk756sdgna7l99rcdj7o1duvtq7k6ka.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wealthwise"
+              }
             }
           ]
         }
