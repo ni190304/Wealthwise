@@ -1,8 +1,12 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wealthwise/TUTOR/home.dart';
 import 'package:wealthwise/neubox1.dart';
 import 'package:wealthwise/settings.dart';
@@ -28,10 +32,10 @@ TextStyle namestyle1() {
 }
 
 TextStyle namestyle2() {
-  return GoogleFonts.zeyada(
+  return GoogleFonts.passionsConflict(
     textStyle: const TextStyle(
       color: Colors.black,
-      fontSize: 48,
+      fontSize: 65,
       fontWeight: FontWeight.normal,
     ),
   );
@@ -72,6 +76,7 @@ class _TutorScreenState extends State<TutorScreen> {
   Future<String?>? user_dp_future;
   Color colordefault = Colors.white;
   Color? color;
+  File? user_image_file;
 
   @override
   void initState() {
@@ -133,6 +138,32 @@ class _TutorScreenState extends State<TutorScreen> {
       });
       return null;
     }
+  }
+
+  void pickImagecam() async {
+    final userImage = await ImagePicker()
+        .pickImage(source: ImageSource.camera, maxWidth: 150, imageQuality: 80);
+
+    if (userImage == null) {
+      return;
+    }
+
+    setState(() {
+      user_image_file = File(userImage.path);
+    });
+  }
+
+  void pickImagegall() async {
+    final userImage = await ImagePicker().pickImage(
+        source: ImageSource.gallery, maxWidth: 150, imageQuality: 80);
+
+    if (userImage == null) {
+      return;
+    }
+
+    setState(() {
+      user_image_file = File(userImage.path);
+    });
   }
 
   Future<List<String>> getAllEmails(String currentUserEmail) async {
@@ -222,6 +253,43 @@ class _TutorScreenState extends State<TutorScreen> {
                     },
                   )),
 
+                  ElevatedButton.icon(
+                        onPressed: pickImagecam,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(
+                              Theme.of(context).colorScheme.primaryContainer),
+                          elevation: const MaterialStatePropertyAll<double>(3),
+                        ),
+                        icon: Container(
+                            height: 40,
+                            width: 40,
+                            child: Lottie.asset('lib/animations/cam.json')),
+                        label: Text(
+                          'Use Camera',
+                          style: namestyle1(),
+                        )),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    ElevatedButton.icon(
+                        onPressed: pickImagegall,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(
+                              Theme.of(context).colorScheme.primaryContainer),
+                          splashFactory: NoSplash.splashFactory,
+                          elevation: const MaterialStatePropertyAll<double>(3),
+                        ),
+                        icon: Container(
+                            height: 40,
+                            width: 40,
+                            child: Lottie.asset('lib/animations/gall.json')),
+                        label: Text(
+                          'Pick from gallery',
+                          style: namestyle1(),
+                        )),
+
+
+
               const SizedBox(
                 height: 11,
               ),
@@ -253,6 +321,23 @@ class _TutorScreenState extends State<TutorScreen> {
                   }
                 },
               ),
+
+              const SizedBox(
+                height: 15,
+              ),
+
+              const ListTile(
+                contentPadding: EdgeInsets.all(20),
+                title: Text(
+                  'View Profile',
+                  style: TextStyle(fontSize: 18),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  size: 20,
+                  color: Colors.black,
+                ),
+              )
             ],
           ),
         ),
@@ -312,7 +397,7 @@ class _TutorScreenState extends State<TutorScreen> {
               width: 8.0,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
+              padding: const EdgeInsets.only(top: 0.0),
               child: Text(
                 'Wealthwise',
                 style: namestyle2(),

@@ -3,9 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:wealthwise/neubox1.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -58,10 +61,10 @@ TextStyle namestyle5() {
 
 class _AuthScreenState extends State<AuthScreen> {
   TextStyle namestyle3() {
-    return GoogleFonts.zeyada(
+    return GoogleFonts.passionsConflict(
       textStyle: TextStyle(
         color: Theme.of(context).colorScheme.primary,
-        fontSize: 60,
+        fontSize: 85,
         fontWeight: FontWeight.normal,
         // fontStyle: FontStyle.italic
       ),
@@ -69,6 +72,73 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   File? user_image_file;
+  String? userProfilePic;
+  String? user_email;
+
+  Color color = Colors.white;
+
+  Future<User?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await GoogleSignIn().signIn();
+
+      if (googleSignInAccount == null) {
+        return null;
+      }
+
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      final UserCredential authResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      final User? user = authResult.user;
+
+      userProfilePic = user!.photoURL; // Get the user's profile picture URL
+      user_email = user.email;
+      final em = FirebaseAuth.instance.currentUser!.email;
+
+      print(userProfilePic);
+      print(user_email);
+      print(em);
+
+      // Check if the user has a profile picture URL
+      if (userProfilePic != null) {
+        final userImagesRef = FirebaseStorage.instance
+            .ref()
+            .child(em!)
+            .child('profile') // Use user's email as the folder name
+            .child('$em.jpg'); // Use a fixed name for the profile picture
+
+        // Upload the user's profile picture to Firebase Storage
+        // You can use the URL directly, as it's provided by Google sign-in
+        await userImagesRef.putData(
+            (await NetworkAssetBundle(Uri.parse(userProfilePic!)).load(''))
+                .buffer
+                .asUint8List());
+
+        // Store the download URL in Firestore or wherever you need it
+        // For example, you can update the user's profile with the URL
+        await FirebaseFirestore.instance.collection('Usernames').doc(em).set({
+          'username': user.displayName,
+        });
+
+        await FirebaseFirestore.instance
+            .collection('ColorMode')
+            .doc(em)
+            .set({'color': color.toString()});
+      }
+
+      return user;
+    } catch (error) {
+      print("Error signing in with Google: $error");
+      return null;
+    }
+  }
 
   void pickImagecam() async {
     final userImage = await ImagePicker()
@@ -134,8 +204,6 @@ class _AuthScreenState extends State<AuthScreen> {
   void submitDetails() async {
     // final email = FirebaseAuth.instance.currentUser!.email;
     final _isvalid = _formkey.currentState!.validate();
-
-    Color color = Colors.white;
 
     if (!_isvalid) {
       return;
@@ -287,7 +355,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               if (_isLogin)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 60.0),
+                  padding: const EdgeInsets.only(bottom: 25.0),
                   child: Text(
                     'Wealthwise',
                     style: namestyle3(),
@@ -443,7 +511,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               style: const TextStyle(color: Colors.white),
                             ),
                           ),
-                        if (!_isAuthenticating)
+                        if (!_isAuthenticating && !_isLogin)
                           TextButton(
                             onPressed: () {
                               setState(() {
@@ -458,15 +526,51 @@ class _AuthScreenState extends State<AuthScreen> {
                             style: ButtonStyle(
                                 overlayColor: MaterialStateProperty.all(
                                     Colors.transparent)),
-                            child: Text(_isLogin
-                                ? 'Create an account'
-                                : 'I already have an account. Log in instead'),
+                            child: const Text(
+                                'I already have an account. Log in instead'),
                           ),
                       ],
                     ),
                   ),
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              if (_isLogin)
+                GestureDetector(
+                    onTap: () async {
+                      User? user = await signInWithGoogle();
+                      if (user != null) {
+                        // User signed in successfully
+                        // You can navigate to another screen or perform actions here
+                        print("User signed in: ${user.displayName}");
+                      } else {
+                        // Handle sign-in failure or user cancellation
+                        print("Sign-in failed");
+                      }
+                    },
+                    child: Neubox2(child: Image.asset('lib/pics/google.jpg'))),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              if (!_isAuthenticating && _isLogin)
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _isLogin = !_isLogin;
+                      _email_controller.clear();
+                      _username_controller.clear();
+                      _password_controller.clear();
+                      focusEmailfield();
+                      visibility_off = true;
+                    });
+                  },
+                  style: ButtonStyle(
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent)),
+                  child: const Text('I am a new member.Create an account'),
+                ),
             ],
           ),
         ),
