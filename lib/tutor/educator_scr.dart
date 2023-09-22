@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,24 +8,34 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wealthwise/TUTOR/home.dart';
-import 'package:wealthwise/neubox1.dart';
-import 'package:wealthwise/settings.dart';
 import 'package:wealthwise/TUTOR/your_videos.dart';
+import 'package:wealthwise/settings.dart';
 
+import '../neubox1.dart';
 import 'videoupload.dart';
 
 class TutorScreen extends StatefulWidget {
-  const TutorScreen({super.key});
+  const TutorScreen({Key? key});
 
   @override
   State<TutorScreen> createState() => _TutorScreenState();
 }
 
 TextStyle namestyle1() {
-  return GoogleFonts.alice(
+  return GoogleFonts.arya(
     textStyle: const TextStyle(
       color: Color.fromARGB(255, 17, 3, 40),
-      fontSize: 33,
+      fontSize: 22,
+      fontWeight: FontWeight.normal,
+    ),
+  );
+}
+
+TextStyle namestyle() {
+  return GoogleFonts.poppins(
+    textStyle: const TextStyle(
+      color: Color.fromARGB(255, 17, 3, 40),
+      fontSize: 13,
       fontWeight: FontWeight.normal,
     ),
   );
@@ -68,7 +78,7 @@ PageController _pageController = PageController();
 final List<Widget> screens = [
   const TutorHome(),
   const TutorVid(),
-  const TutorSett()
+  const TutorSett(),
 ];
 
 class _TutorScreenState extends State<TutorScreen> {
@@ -83,7 +93,6 @@ class _TutorScreenState extends State<TutorScreen> {
     super.initState();
     user_email = FirebaseAuth.instance.currentUser!.email;
     getUserImg();
-    getAllEmails(user_email!);
     getcolor(user_email!);
   }
 
@@ -140,55 +149,8 @@ class _TutorScreenState extends State<TutorScreen> {
     }
   }
 
-  void pickImagecam() async {
-    final userImage = await ImagePicker()
-        .pickImage(source: ImageSource.camera, maxWidth: 150, imageQuality: 80);
-
-    if (userImage == null) {
-      return;
-    }
-
-    setState(() {
-      user_image_file = File(userImage.path);
-    });
-  }
-
-  void pickImagegall() async {
-    final userImage = await ImagePicker().pickImage(
-        source: ImageSource.gallery, maxWidth: 150, imageQuality: 80);
-
-    if (userImage == null) {
-      return;
-    }
-
-    setState(() {
-      user_image_file = File(userImage.path);
-    });
-  }
-
-  Future<List<String>> getAllEmails(String currentUserEmail) async {
-    List<String> emails = [];
-
-    CollectionReference businessCollection =
-        FirebaseFirestore.instance.collection('Tutor');
-
-    QuerySnapshot querySnapshot = await businessCollection.get();
-
-    querySnapshot.docs.forEach((doc) {
-      String email = doc.get('email');
-      if (email != null && email != currentUserEmail) {
-        emails.add(email);
-      }
-    });
-
-    print('Other tutoremails are $emails');
-
-    return emails;
-  }
-
   @override
   Widget build(BuildContext context) {
-    // final email = FirebaseAuth.instance.currentUser!.email;
     void _onTabTapped(int index) {
       setState(() {
         _selectedIndex = index;
@@ -200,148 +162,6 @@ class _TutorScreenState extends State<TutorScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: FractionallySizedBox(
-        widthFactor: 0.85,
-        child: Drawer(
-          child: Column(
-            children: [
-              Container(
-                // color: Theme.of(context).colorScheme.primary,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: ListTile(
-                    leading: const Neubox2(
-                      child: Icon(
-                        Icons.clear_outlined,
-                        color: Colors.black,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-              ),
-              // Text('Hello')
-              CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.black,
-                  child: FutureBuilder<String?>(
-                    future: user_dp_future,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const SizedBox(
-                          height: 10,
-                          width: 10,
-                          child: CircularProgressIndicator(
-                            backgroundColor: Colors.white,
-                          ),
-                        ); // Show a loading indicator while fetching the image URL
-                      } else if (snapshot.hasData && snapshot.data != null) {
-                        return ClipOval(
-                          child: Image.network(
-                            snapshot.data!,
-                            fit: BoxFit.cover,
-                            height: 119,
-                            width: 119,
-                          ),
-                        ); // Display the image if available
-                      } else {
-                        return const Text(
-                            '!'); // Display a message if the image is not available
-                      }
-                    },
-                  )),
-
-                  ElevatedButton.icon(
-                        onPressed: pickImagecam,
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                              Theme.of(context).colorScheme.primaryContainer),
-                          elevation: const MaterialStatePropertyAll<double>(3),
-                        ),
-                        icon: Container(
-                            height: 40,
-                            width: 40,
-                            child: Lottie.asset('lib/animations/cam.json')),
-                        label: Text(
-                          'Use Camera',
-                          style: namestyle1(),
-                        )),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    ElevatedButton.icon(
-                        onPressed: pickImagegall,
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                              Theme.of(context).colorScheme.primaryContainer),
-                          splashFactory: NoSplash.splashFactory,
-                          elevation: const MaterialStatePropertyAll<double>(3),
-                        ),
-                        icon: Container(
-                            height: 40,
-                            width: 40,
-                            child: Lottie.asset('lib/animations/gall.json')),
-                        label: Text(
-                          'Pick from gallery',
-                          style: namestyle1(),
-                        )),
-
-
-
-              const SizedBox(
-                height: 11,
-              ),
-
-              FutureBuilder<String?>(
-                future: fetchusernames(user_email!),
-                builder: (context, profileUserName) {
-                  if (profileUserName.connectionState ==
-                      ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (profileUserName.hasError) {
-                    return Text(
-                        'Error fetching profile picture: ${profileUserName.error}');
-                  } else if (profileUserName.hasData) {
-                    final tt = profileUserName.data;
-                    if (tt != null) {
-                      return Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Text(
-                          tt,
-                          style: username(),
-                        ),
-                      );
-                    } else {
-                      return const Text('No profile picture available');
-                    }
-                  } else {
-                    return const Text('No profile picture available');
-                  }
-                },
-              ),
-
-              const SizedBox(
-                height: 15,
-              ),
-
-              const ListTile(
-                contentPadding: EdgeInsets.all(20),
-                title: Text(
-                  'View Profile',
-                  style: TextStyle(fontSize: 18),
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  size: 20,
-                  color: Colors.black,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -406,19 +226,19 @@ class _TutorScreenState extends State<TutorScreen> {
           ],
         ),
         actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return const VideoUpload();
-                  },
-                ));
-              },
-              icon: const Icon(
-                Icons.video_camera_back_rounded,
-                color: Colors.black,
-                size: 25,
-              )),
+          // IconButton(
+          //     onPressed: () {
+          //       Navigator.push(context, MaterialPageRoute(
+          //         builder: (context) {
+          //           return const VideoUpload();
+          //         },
+          //       ));
+          //     },
+          //     icon: const Icon(
+          //       Icons.video_camera_back_rounded,
+          //       color: Colors.black,
+          //       size: 25,
+          //     )),
           PopupMenuButton<String>(
             onSelected: (value) {
               switch (value) {
@@ -468,6 +288,101 @@ class _TutorScreenState extends State<TutorScreen> {
           )
         ],
       ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: ListTile(
+                leading: const Neubox2(
+                  child: Icon(
+                    Icons.clear_outlined,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            CircleAvatar(
+              radius: 60,
+              backgroundColor: Colors.black,
+              child: FutureBuilder<String?>(
+                future: user_dp_future,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SizedBox(
+                      height: 10,
+                      width: 10,
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
+                    ); // Show a loading indicator while fetching the image URL
+                  } else if (snapshot.hasData && snapshot.data != null) {
+                    return ClipOval(
+                      child: Image.network(
+                        snapshot.data!,
+                        fit: BoxFit.cover,
+                        height: 119,
+                        width: 119,
+                      ),
+                    ); // Display the image if available
+                  } else {
+                    return const Text(
+                        '!'); // Display a message if the image is not available
+                  }
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 4,
+            ),
+            FutureBuilder<String?>(
+              future: fetchusernames(user_email!),
+              builder: (context, profileUserName) {
+                if (profileUserName.connectionState ==
+                    ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (profileUserName.hasError) {
+                  return Text(
+                      'Error fetching profile picture: ${profileUserName.error}');
+                } else if (profileUserName.hasData) {
+                  final tt = profileUserName.data;
+                  if (tt != null) {
+                    return Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Text(
+                        tt,
+                        style: username(),
+                      ),
+                    );
+                  } else {
+                    return const Text('No profile picture available');
+                  }
+                } else {
+                  return const Text('No profile picture available');
+                }
+              },
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.all(20),
+              title: Text(
+                'View Profile',
+                style: namestyle1(),
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_ios_outlined,
+                size: 20,
+                color: Colors.black,
+              ),
+            )
+          ],
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -501,16 +416,16 @@ class _TutorScreenState extends State<TutorScreen> {
         onTap: _onTabTapped,
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_outlined,
-                size: 23,
-              ),
-              label: 'Home',
-              activeIcon: Icon(
-                Icons.home,
-                size: 29,
-              ) // Icon for selected state
-              ),
+            icon: Icon(
+              Icons.home_outlined,
+              size: 23,
+            ),
+            label: 'Home',
+            activeIcon: Icon(
+              Icons.home,
+              size: 29,
+            ),
+          ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.video_collection_outlined,
@@ -520,18 +435,18 @@ class _TutorScreenState extends State<TutorScreen> {
             activeIcon: Icon(
               Icons.video_collection,
               size: 29,
-            ), // Icon for selected state
+            ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.settings_outlined,
+              Icons.settings,
               size: 23,
             ),
             label: 'Settings',
             activeIcon: Icon(
               Icons.settings,
               size: 29,
-            ), // Icon for selected state
+            ),
           ),
         ],
       ),

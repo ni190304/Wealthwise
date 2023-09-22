@@ -10,10 +10,12 @@ import 'package:lottie/lottie.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:wealthwise/neubox1.dart';
 
+import 'neubox3.dart';
+
 final _firebase = FirebaseAuth.instance;
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key});
+  const AuthScreen({Key? key}) : super(key: key);
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -66,7 +68,6 @@ class _AuthScreenState extends State<AuthScreen> {
         color: Theme.of(context).colorScheme.primary,
         fontSize: 85,
         fontWeight: FontWeight.normal,
-        // fontStyle: FontStyle.italic
       ),
     );
   }
@@ -184,8 +185,6 @@ class _AuthScreenState extends State<AuthScreen> {
 
   final _emailnode = FocusNode();
 
-  // bool _is_val = true;
-
   final _email_controller = TextEditingController();
   final _username_controller = TextEditingController();
   final _password_controller = TextEditingController();
@@ -287,6 +286,18 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle signinnamestyle() {
+      return GoogleFonts.alice(
+    textStyle: const TextStyle(
+      color: Colors.black,
+      fontSize: 22,
+      fontWeight: FontWeight.normal,
+    ),
+  );
+    }
+
+    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: Center(
@@ -297,32 +308,33 @@ class _AuthScreenState extends State<AuthScreen> {
               if (!_isLogin)
                 Column(
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: isSmallScreen ? 10 : 20,
                     ),
                     CircleAvatar(
-                      radius: 60,
+                      radius: isSmallScreen ? 60 : 80,
                       backgroundColor: Colors.black,
                       child: user_image_file != null
                           ? ClipOval(
                               child: Image.file(
                               user_image_file!,
                               fit: BoxFit.cover,
-                              height: 150,
-                              width: 150,
+                              height: isSmallScreen ? 120 : 170,
+                              width: isSmallScreen ? 120 : 170,
                             ))
                           : Lottie.asset('lib/animations/image.json',
-                              width: 120, height: 120),
+                              width: isSmallScreen ? 60 : 120,
+                              height: isSmallScreen ? 60 : 120),
                     ),
-                    const SizedBox(
-                      height: 16,
+                    SizedBox(
+                      height: isSmallScreen ? 8 : 16,
                     ),
                     ElevatedButton.icon(
                         onPressed: pickImagecam,
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
+                          backgroundColor: MaterialStateProperty.all<Color>(
                               Theme.of(context).colorScheme.primaryContainer),
-                          elevation: const MaterialStatePropertyAll<double>(3),
+                          elevation: MaterialStateProperty.all<double>(3),
                         ),
                         icon: Container(
                             height: 40,
@@ -332,16 +344,16 @@ class _AuthScreenState extends State<AuthScreen> {
                           'Use Camera',
                           style: namestyle1(),
                         )),
-                    const SizedBox(
-                      height: 4,
+                    SizedBox(
+                      height: isSmallScreen ? 2 : 4,
                     ),
                     ElevatedButton.icon(
                         onPressed: pickImagegall,
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
+                          backgroundColor: MaterialStateProperty.all<Color>(
                               Theme.of(context).colorScheme.primaryContainer),
                           splashFactory: NoSplash.splashFactory,
-                          elevation: const MaterialStatePropertyAll<double>(3),
+                          elevation: MaterialStateProperty.all<double>(3),
                         ),
                         icon: Container(
                             height: 40,
@@ -355,31 +367,27 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               if (_isLogin)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 25.0),
+                  padding: EdgeInsets.only(
+                    bottom: isSmallScreen ? 12.0 : 25.0,
+                  ),
                   child: Text(
                     'Wealthwise',
                     style: namestyle3(),
                   ),
                 ),
               Card(
-                margin: const EdgeInsets.all(15),
+                margin: EdgeInsets.all(isSmallScreen ? 10 : 15),
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: EdgeInsets.all(isSmallScreen ? 20.0 : 40.0),
                     child: Column(
                       children: [
                         Form(
-                          // autovalidateMode: _is_val
-                          //     ? AutovalidateMode
-                          //         .disabled // Show validation errors if _showValidation is true
-                          //     : AutovalidateMode
-                          //         .always, // Hide validation errors if _showValidation is false
                           key: _formkey,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextFormField(
-                                // autovalidateMode: AutovalidateMode.onUserInteractio,
                                 focusNode: _emailnode,
                                 controller: _email_controller,
                                 style: namestyle4(),
@@ -409,8 +417,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                   entered_email = newValue!;
                                 },
                               ),
-                              const SizedBox(
-                                height: 5,
+                              SizedBox(
+                                height: isSmallScreen ? 3 : 5,
                               ),
                               if (!_isLogin)
                                 TextFormField(
@@ -445,8 +453,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                     entered_user = newValue!;
                                   },
                                 ),
-                              const SizedBox(
-                                height: 5,
+                              SizedBox(
+                                height: isSmallScreen ? 3 : 5,
                               ),
                               TextFormField(
                                 controller: _password_controller,
@@ -486,17 +494,20 @@ class _AuthScreenState extends State<AuthScreen> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 25,
+                        SizedBox(
+                          height: isSmallScreen ? 10 : 25,
                         ),
                         if (_isAuthenticating && validity)
-                          const CircularProgressIndicator(),
+                          CircularProgressIndicator(),
                         if (!_isAuthenticating)
                           ElevatedButton.icon(
                             onPressed: submitDetails,
                             style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.only(
-                                  top: 12, bottom: 12, left: 15, right: 15),
+                              padding: EdgeInsets.only(
+                                  top: 12,
+                                  bottom: 12,
+                                  left: isSmallScreen ? 10 : 15,
+                                  right: isSmallScreen ? 10 : 15),
                               backgroundColor:
                                   Theme.of(context).colorScheme.primary,
                             ),
@@ -508,7 +519,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                             label: Text(
                               _isLogin ? 'Login' : 'Signup',
-                              style: const TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         if (!_isAuthenticating && !_isLogin)
@@ -534,24 +545,38 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: isSmallScreen ? 90 : 110,
               ),
               if (_isLogin)
                 GestureDetector(
-                    onTap: () async {
-                      User? user = await signInWithGoogle();
-                      if (user != null) {
-                        // User signed in successfully
-                        // You can navigate to another screen or perform actions here
-                        print("User signed in: ${user.displayName}");
-                      } else {
-                        // Handle sign-in failure or user cancellation
-                        print("Sign-in failed");
-                      }
-                    },
-                    child: Neubox2(child: Image.asset('lib/pics/google.jpg'))),
-              // const SizedBox(
+                  onTap: () async {
+                    User? user = await signInWithGoogle();
+                    if (user != null) {
+                      // User signed in successfully
+                      // You can navigate to another screen or perform actions here
+                      print("User signed in: ${user.displayName}");
+                    } else {
+                      // Handle sign-in failure or user cancellation
+                      print("Sign-in failed");
+                    }
+                  },
+                  child: Neubox3(
+                      child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Sign in with ',
+                        style: signinnamestyle(),
+                      ),
+                      Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset('lib/pics/google.jpg')),
+                    ],
+                  )),
+                ),
+              // SizedBox(
               //   height: 10,
               // ),
               if (!_isAuthenticating && _isLogin)
@@ -569,7 +594,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   style: ButtonStyle(
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent)),
-                  child: const Text('I am a new member.Create an account'),
+                  child: Text('I am a new member. Create an account'),
                 ),
             ],
           ),
