@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 
-
 final _firebase = FirebaseAuth.instance;
 
 class AuthScreen extends StatefulWidget {
@@ -136,6 +135,8 @@ class _AuthScreenState extends State<AuthScreen> {
     // final email = FirebaseAuth.instance.currentUser!.email;
     final _isvalid = _formkey.currentState!.validate();
 
+    Color color = Colors.white;
+
     if (!_isvalid) {
       return;
     }
@@ -186,6 +187,11 @@ class _AuthScreenState extends State<AuthScreen> {
             .collection('Usernames')
             .doc(email)
             .set({'username': entered_user});
+
+        await FirebaseFirestore.instance
+            .collection('ColorMode')
+            .doc(email)
+            .set({'color': color.toString()});
 
         final upload_task = user_images.putFile(user_image_file!);
 

@@ -47,6 +47,16 @@ TextStyle namestyle3() {
   );
 }
 
+TextStyle username() {
+  return GoogleFonts.alice(
+    textStyle: const TextStyle(
+      color: Colors.black,
+      fontSize: 23,
+      fontWeight: FontWeight.normal,
+    ),
+  );
+}
+
 int _selectedIndex = 0;
 
 PageController _pageController = PageController();
@@ -60,6 +70,8 @@ final List<Widget> screens = [
 class _TutorScreenState extends State<TutorScreen> {
   String? user_email;
   Future<String?>? user_dp_future;
+  Color colordefault = Colors.white;
+  Color? color;
 
   @override
   void initState() {
@@ -67,6 +79,39 @@ class _TutorScreenState extends State<TutorScreen> {
     user_email = FirebaseAuth.instance.currentUser!.email;
     getUserImg();
     getAllEmails(user_email!);
+    getcolor(user_email!);
+  }
+
+  Future<Color?> getcolor(String email) async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('ColorMode')
+        .doc(email)
+        .get();
+
+    try {
+      color = await snapshot['color'];
+
+      return color;
+    } catch (e) {
+      print('Error fetching color: $e');
+      return colordefault;
+    }
+  }
+
+  Future<String?> fetchusernames(String eemail) async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Usernames')
+        .doc(eemail)
+        .get();
+
+    try {
+      final user_name = await snapshot['username'];
+
+      return user_name;
+    } catch (e) {
+      print('Error fetching username: $e');
+      return null;
+    }
   }
 
   Future<String?> getUserImg() async {
@@ -132,7 +177,7 @@ class _TutorScreenState extends State<TutorScreen> {
               Container(
                 // color: Theme.of(context).colorScheme.primary,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 0, top: 15),
+                  padding: const EdgeInsets.only(top: 15),
                   child: ListTile(
                     leading: const Neubox2(
                       child: Icon(
@@ -151,7 +196,7 @@ class _TutorScreenState extends State<TutorScreen> {
                   radius: 60,
                   backgroundColor: Colors.black,
                   child: FutureBuilder<String?>(
-                    future: user_dp_future, // Use the Future here
+                    future: user_dp_future,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const SizedBox(
@@ -166,8 +211,8 @@ class _TutorScreenState extends State<TutorScreen> {
                           child: Image.network(
                             snapshot.data!,
                             fit: BoxFit.cover,
-                            height: 117,
-                            width: 117,
+                            height: 119,
+                            width: 119,
                           ),
                         ); // Display the image if available
                       } else {
@@ -176,6 +221,38 @@ class _TutorScreenState extends State<TutorScreen> {
                       }
                     },
                   )),
+
+              const SizedBox(
+                height: 11,
+              ),
+
+              FutureBuilder<String?>(
+                future: fetchusernames(user_email!),
+                builder: (context, profileUserName) {
+                  if (profileUserName.connectionState ==
+                      ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (profileUserName.hasError) {
+                    return Text(
+                        'Error fetching profile picture: ${profileUserName.error}');
+                  } else if (profileUserName.hasData) {
+                    final tt = profileUserName.data;
+                    if (tt != null) {
+                      return Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Text(
+                          tt,
+                          style: username(),
+                        ),
+                      );
+                    } else {
+                      return const Text('No profile picture available');
+                    }
+                  } else {
+                    return const Text('No profile picture available');
+                  }
+                },
+              ),
             ],
           ),
         ),
