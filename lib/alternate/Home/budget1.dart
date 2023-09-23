@@ -5,19 +5,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wealthwise/main.dart';
-import 'package:wealthwise/neubox.dart';
 import 'package:wealthwise/splash.dart';
 
 import '../../viditem.dart';
 
-class Budget2 extends StatefulWidget {
-  const Budget2({Key? key}) : super(key: key);
+class Budget1 extends StatefulWidget {
+  const Budget1({Key? key}) : super(key: key);
 
   @override
-  State<Budget2> createState() => _Budget2State();
+  State<Budget1> createState() => _Budget1State();
 }
 
-class _Budget2State extends State<Budget2> {
+class _Budget1State extends State<Budget1> {
   late StreamController<List<String>> _budgetEmailsController;
   final currentemail = FirebaseAuth.instance.currentUser!.email;
   late VideoPlayerController _videoPlayerController;
@@ -41,7 +40,7 @@ class _Budget2State extends State<Budget2> {
 
     querySnapshot.docs.forEach((doc) {
       String email = doc.get('email');
-      if (email != null && email == currentemail) {
+      if (email != null && email != currentemail) {
         budgetEmails.add(email);
       }
     });
@@ -49,9 +48,9 @@ class _Budget2State extends State<Budget2> {
     _budgetEmailsController.add(budgetEmails);
   }
 
-  Future<List<String>> fetchVideoUrls(String eemail, int budgetctr) async {
-    List<String> videoUrls = [];
+  List<String> videoUrls = [];
 
+  Future<List<String>> fetchVideoUrls(String eemail, int budgetctr) async {
     for (int j = 0; j <= budgetctr - 1; j++) {
       final budgetvideoFilename = 'video__${eemail}_Budgeting_$j.mp4';
 
@@ -112,7 +111,7 @@ class _Budget2State extends State<Budget2> {
             List<String> budgetemails = snapshot.data!;
 
             if (budgetemails.isEmpty) {
-              return const Center(child: Text("You haven't added any video related to budgeting"));
+              return const Center(child: Text('No budget emails available'));
             }
 
             return Padding(
@@ -177,7 +176,7 @@ class _Budget2State extends State<Budget2> {
             );
           } else if (snapshot.data!.isEmpty) {
             return const Center(
-              child: Text("You haven't added any video related to Budgeting"),
+              child: Text('No budget emails available'),
             );
           } else {
             return const Center(child: CircularProgressIndicator());

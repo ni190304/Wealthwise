@@ -9,8 +9,9 @@ import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wealthwise/videcat.dart';
-import 'package:wealthwise/neubox1.dart';
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+
+import '../designed_boxes/neubox2.dart';
 
 class VideoUpload extends StatefulWidget {
   const VideoUpload({super.key});

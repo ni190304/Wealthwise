@@ -8,9 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:wealthwise/neubox1.dart';
+import 'designed_boxes/neubox3.dart';
 
-import 'neubox3.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -254,6 +253,11 @@ class _AuthScreenState extends State<AuthScreen> {
             .collection('Usernames')
             .doc(email)
             .set({'username': entered_user});
+
+        await FirebaseFirestore.instance
+          .collection('User')
+          .doc(email)
+          .set({'email': email});
 
         await FirebaseFirestore.instance
             .collection('ColorMode')

@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:wealthwise/info2.dart';
-import 'package:wealthwise/TUTOR/educator_scr.dart';
+import 'package:wealthwise/alternate/edu_screen.dart';
+import 'package:wealthwise/quiz.dart';
 import 'package:wealthwise/user_scr.dart';
 import 'package:wealthwise/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'actual/user_scr.dart';
 import 'auth.dart';
-import 'info.dart';
 
 class Start extends StatefulWidget {
   const Start({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<Start> createState() => _StartState();
@@ -55,49 +55,31 @@ class _StartState extends State<Start> {
             final currentEmail = authSnapshot.data!.email;
             return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
               stream: FirebaseFirestore.instance
-                  .collection('Tutor')
+                  .collection('User')
                   .doc(currentEmail)
                   .snapshots(),
-              builder: (context, tutSnapshot) {
-                return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-                  stream: FirebaseFirestore.instance
-                      .collection('Student')
-                      .doc(currentEmail)
-                      .snapshots(),
-                  builder: (context, studSnapshot) {
-                    if (authSnapshot.connectionState ==
-                            ConnectionState.waiting ||
-                        tutSnapshot.connectionState ==
-                            ConnectionState.waiting ||
-                        studSnapshot.connectionState ==
-                            ConnectionState.waiting) {
-                      return const Splash();
-                    }
+              builder: (context, userSnapshot) {
+                if (authSnapshot.connectionState == ConnectionState.waiting ||
+                    userSnapshot.connectionState == ConnectionState.waiting) {
+                  return const Splash();
+                }
 
-                    if (authSnapshot.connectionState ==
-                        ConnectionState.active) {
-                      if (authSnapshot.hasData) {
-                        if (tutSnapshot.connectionState ==
-                                ConnectionState.active &&
-                            tutSnapshot.hasData &&
-                            tutSnapshot.data!.exists) {
-                          return const TutorScreen();
-                        } else if (studSnapshot.connectionState ==
-                                ConnectionState.active &&
-                            studSnapshot.hasData &&
-                            studSnapshot.data!.exists) {
-                          return const StudentScreen();
-                        } else {
-                          return const Info2();
-                        }
-                      } else {
-                        return const AuthScreen();
-                      }
+                if (authSnapshot.connectionState == ConnectionState.active) {
+                  if (authSnapshot.hasData) {
+                    if (userSnapshot.connectionState ==
+                            ConnectionState.active &&
+                        userSnapshot.hasData &&
+                        userSnapshot.data!.exists) {
+                      return const UserScreen();
+                    } else {
+                      return const Quiz();
                     }
+                  } else {
+                    return const AuthScreen();
+                  }
+                }
 
-                    return const Splash();
-                  },
-                );
+                return const Splash();
               },
             );
           } else {
@@ -106,18 +88,5 @@ class _StartState extends State<Start> {
         },
       ),
     );
-  } // else {
-  //   return MaterialApp(
-  //     debugShowCheckedModeBanner: false,
-  //     home: Scaffold(
-  //       body: Center(
-  //         child: SizedBox(
-  //           height: 300,
-  //           width: 250,
-  //           child: Lottie.asset('lib/animations/internet.json'),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  }
 }

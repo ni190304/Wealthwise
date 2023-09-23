@@ -3,11 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Info2 extends StatefulWidget {
-  const Info2({super.key});
+class Quiz extends StatefulWidget {
+  const Quiz({super.key});
 
   @override
-  State<Info2> createState() => _Info2State();
+  State<Quiz> createState() => _QuizState();
 }
 
 TextStyle namestyle4() {
@@ -22,7 +22,7 @@ TextStyle namestyle4() {
 
 List<String> tutor_emails = [];
 
-class _Info2State extends State<Info2> {
+class _QuizState extends State<Quiz> {
   var _is_student_selected = true;
   var button_pressed = false;
 

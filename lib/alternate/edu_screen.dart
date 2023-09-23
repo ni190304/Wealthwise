@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:wealthwise/TUTOR/home.dart';
-import 'package:wealthwise/TUTOR/your_videos.dart';
+import 'package:wealthwise/alternate/home.dart';
+import 'package:wealthwise/alternate/your_videos.dart';
 import 'package:wealthwise/settings.dart';
 
-import '../neubox1.dart';
+import '../designed_boxes/neubox2.dart';
 import 'videoupload.dart';
 
 class TutorScreen extends StatefulWidget {

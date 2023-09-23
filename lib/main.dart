@@ -3,7 +3,6 @@ import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:wealthwise/songpage.dart';
 import 'package:wealthwise/start.dart';
 
 import 'firebase_options.dart';

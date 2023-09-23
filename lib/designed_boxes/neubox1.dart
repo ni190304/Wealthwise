@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class NeuBox extends StatelessWidget {
+class NeuBox1 extends StatelessWidget {
   final child;
-  const NeuBox({super.key, required this.child});
+  const NeuBox1({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

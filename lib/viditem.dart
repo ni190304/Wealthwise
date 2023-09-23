@@ -3,10 +3,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:like_button/like_button.dart';
 import 'package:wealthwise/main.dart';
+import 'designed_boxes/neubox1.dart';
 
-import 'neubox.dart';
 
 class VideoItem extends StatefulWidget {
   String url;
@@ -112,7 +111,7 @@ class _VideoItemState extends State<VideoItem> {
             });
           },
           child: Flexible(
-            child: NeuBox(
+            child: NeuBox1(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
