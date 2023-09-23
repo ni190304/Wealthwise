@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:wealthwise/actual/quiz/qs/qsumm.dart';
 import 'package:wealthwise/actual/quiz/qs/quescreen.dart';
 import 'package:wealthwise/actual/quiz/qs/questions.dart';
+import 'package:wealthwise/actual/user_scr.dart';
 
 import 'analysis.dart';
 
@@ -90,11 +91,6 @@ class _ResultState extends State<Result> {
         .collection('User')
         .doc(current_email)
         .set({'email': current_email});
-
-    await FirebaseFirestore.instance
-        .collection('QuizScore')
-        .doc(current_email)
-        .set({'score': correctly_answered.length.toString()});
   }
 
   @override
@@ -185,7 +181,14 @@ class _ResultState extends State<Result> {
                   Padding(
                     padding: const EdgeInsets.only(top: 35.0),
                     child: OutlinedButton.icon(
-                      onPressed: submit_details,
+                      onPressed: () {
+                        submit_details();
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const UserScreen();
+                          },
+                        ));
+                      },
                       style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
@@ -199,7 +202,7 @@ class _ResultState extends State<Result> {
                         padding: const EdgeInsets.only(
                             top: 10.0, right: 10.0, left: 10.0),
                         child: Text(
-                          'Restartt Quiz',
+                          'Go to Homepage',
                           textAlign: TextAlign.center,
                           style: _getTextStyle2(),
                         ),

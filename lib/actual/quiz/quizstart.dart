@@ -151,6 +151,19 @@ class _QuizStartState extends State<QuizStart> {
     });
   }
 
+  void submit_details() async {
+    setState(() {
+      button_pressed = true;
+    });
+
+    final current_email = FirebaseAuth.instance.currentUser!.email;
+
+    await FirebaseFirestore.instance
+        .collection('User')
+        .doc(current_email)
+        .set({'email': current_email});
+  }
+
   void pickImagegall() async {
     final userImage = await ImagePicker().pickImage(
         source: ImageSource.gallery, maxWidth: 150, imageQuality: 80);
@@ -178,19 +191,6 @@ class _QuizStartState extends State<QuizStart> {
       });
       showdismsnack(context);
     });
-  }
-
-  void submit_details() async {
-    setState(() {
-      button_pressed = true;
-    });
-
-    final current_email = FirebaseAuth.instance.currentUser!.email;
-
-    await FirebaseFirestore.instance
-        .collection('User')
-        .doc(current_email)
-        .set({'email': current_email});
   }
 
   @override
@@ -355,10 +355,11 @@ class _QuizStartState extends State<QuizStart> {
                   padding: const EdgeInsets.only(top: 35.0),
                   child: OutlinedButton.icon(
                     onPressed: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const QuestionsScreen();
-                      }));
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const QuestionsScreen();
+                        },
+                      ));
                     },
                     style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(
