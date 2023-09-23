@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:wealthwise/alternate/edu_screen.dart';
-import 'package:wealthwise/quiz.dart';
 import 'package:wealthwise/user_scr.dart';
 import 'package:wealthwise/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'actual/quiz/quizstart.dart';
 import 'actual/user_scr.dart';
 import 'auth.dart';
 
@@ -44,7 +44,7 @@ class _StartState extends State<Start> {
       theme: ThemeData.from(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(159, 21, 46, 113),
+          seedColor: Color.fromARGB(159, 27, 9, 50),
         ),
       ),
       title: 'Wealthwise',
@@ -72,7 +72,7 @@ class _StartState extends State<Start> {
                         userSnapshot.data!.exists) {
                       return const UserScreen();
                     } else {
-                      return const Quiz();
+                      return const QuizStart();
                     }
                   } else {
                     return const AuthScreen();

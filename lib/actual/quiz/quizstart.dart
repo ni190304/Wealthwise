@@ -7,14 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:wealthwise/actual/quiz/qs/quescreen.dart';
 import 'package:wealthwise/designed_boxes/neubox3.dart';
 import 'package:wealthwise/designed_boxes/neubox4.dart';
 
-class Quiz extends StatefulWidget {
-  const Quiz({super.key});
+class QuizStart extends StatefulWidget {
+  const QuizStart({super.key});
 
   @override
-  State<Quiz> createState() => _QuizState();
+  State<QuizStart> createState() => _QuizStartState();
 }
 
 TextStyle username() {
@@ -27,7 +28,16 @@ TextStyle username() {
   );
 }
 
-class _QuizState extends State<Quiz> {
+TextStyle _getTextStyle2() {
+  return GoogleFonts.katibeh(
+    textStyle: const TextStyle(
+      color: Colors.white,
+      fontSize: 30,
+    ),
+  );
+}
+
+class _QuizStartState extends State<QuizStart> {
   String? user_email;
   Future<String?>? user_dp_future;
   var button_pressed = false;
@@ -97,7 +107,7 @@ class _QuizState extends State<Quiz> {
           messageSize: 16,
           messageColor: Colors.white,
           flushbarPosition: FlushbarPosition.TOP,
-          margin: const EdgeInsets.fromLTRB(8, kToolbarHeight + 2, 8, 0),
+          margin: const EdgeInsets.fromLTRB(8, kToolbarHeight, 8, 0),
           duration: const Duration(milliseconds: 2200),
           padding: const EdgeInsets.all(24),
           dismissDirection: FlushbarDismissDirection.HORIZONTAL,
@@ -341,24 +351,32 @@ class _QuizState extends State<Quiz> {
                 height: 25,
               ),
               if (!button_pressed)
-                ElevatedButton.icon(
-                  onPressed: submit_details,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.primaryContainer,
-                  ),
-                  icon: const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                      color: Colors.black,
-                    ),
-                  ),
-                  label: const Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(
-                      'Start the quiz',
-                      style: TextStyle(color: Colors.black),
+                Padding(
+                  padding: const EdgeInsets.only(top: 35.0),
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const QuestionsScreen();
+                      }));
+                    },
+                    style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        side: const BorderSide(
+                          width: 1.0,
+                          color: Colors.black,
+                        ),
+                        backgroundColor: const Color.fromARGB(255, 29, 3, 3)),
+                    icon: const Icon(Icons.restart_alt_outlined),
+                    label: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10.0, right: 10.0, left: 10.0),
+                      child: Text(
+                        'Start Quiz',
+                        textAlign: TextAlign.center,
+                        style: _getTextStyle2(),
+                      ),
                     ),
                   ),
                 ),
