@@ -9,7 +9,7 @@ class Sett extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: Text(
-          'Setting',
+          'Settings',
         )
       ),
     );

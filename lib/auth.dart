@@ -255,11 +255,6 @@ class _AuthScreenState extends State<AuthScreen> {
             .set({'username': entered_user});
 
         await FirebaseFirestore.instance
-          .collection('User')
-          .doc(email)
-          .set({'email': email});
-
-        await FirebaseFirestore.instance
             .collection('ColorMode')
             .doc(email)
             .set({'color': color.toString()});

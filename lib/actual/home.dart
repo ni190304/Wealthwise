@@ -31,9 +31,9 @@ class _HomeState extends State<Home> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 5,
-          ),
+          // const SizedBox(
+          //   height: 5,
+          // ),
           GNav(
             backgroundColor: Colors.white,
             selectedIndex: currentIndex,
@@ -41,8 +41,8 @@ class _HomeState extends State<Home> {
             activeColor: Colors.white,
             tabBackgroundColor: Theme.of(context).colorScheme.primary,
             onTabChange: _onTabTapped,
-            gap: 4,
-            padding: const EdgeInsets.all(12),
+            gap: 15,
+            padding: const EdgeInsets.only(left: 15,right: 15,top: 13.5,bottom: 13.5),
             tabs: const [
               GButton(
                 icon: Icons.account_balance_wallet_rounded,
