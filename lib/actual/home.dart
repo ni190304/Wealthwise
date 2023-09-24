@@ -3,7 +3,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:wealthwise/actual/home/budgeting.dart';
 import 'package:wealthwise/actual/home/investments.dart';
 import 'package:wealthwise/actual/home/loans.dart';
-import 'package:wealthwise/actual/home/stocks.dart';
+
+import 'home/stocks.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -42,7 +43,8 @@ class _HomeState extends State<Home> {
             tabBackgroundColor: Theme.of(context).colorScheme.primary,
             onTabChange: _onTabTapped,
             gap: 15,
-            padding: const EdgeInsets.only(left: 15,right: 15,top: 13.5,bottom: 13.5),
+            padding: const EdgeInsets.only(
+                left: 15, right: 15, top: 13.5, bottom: 13.5),
             tabs: const [
               GButton(
                 icon: Icons.account_balance_wallet_rounded,
