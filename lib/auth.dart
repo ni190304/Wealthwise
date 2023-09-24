@@ -10,7 +10,6 @@ import 'package:lottie/lottie.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'designed_boxes/neubox3.dart';
 
-
 final _firebase = FirebaseAuth.instance;
 
 class AuthScreen extends StatefulWidget {
@@ -254,11 +253,6 @@ class _AuthScreenState extends State<AuthScreen> {
             .doc(email)
             .set({'username': entered_user});
 
-        await FirebaseFirestore.instance
-            .collection('ColorMode')
-            .doc(email)
-            .set({'color': color.toString()});
-
         final upload_task = user_images.putFile(user_image_file!);
 
         await upload_task.whenComplete(() async {
@@ -287,12 +281,12 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     TextStyle signinnamestyle() {
       return GoogleFonts.alice(
-    textStyle: const TextStyle(
-      color: Colors.black,
-      fontSize: 22,
-      fontWeight: FontWeight.normal,
-    ),
-  );
+        textStyle: const TextStyle(
+          color: Colors.black,
+          fontSize: 22,
+          fontWeight: FontWeight.normal,
+        ),
+      );
     }
 
     final isSmallScreen = MediaQuery.of(context).size.width < 600;

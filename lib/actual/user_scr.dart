@@ -34,6 +34,16 @@ TextStyle namestyle1() {
   );
 }
 
+TextStyle namestyle4() {
+  return GoogleFonts.arya(
+    textStyle: const TextStyle(
+      color: Color.fromARGB(255, 17, 3, 40),
+      fontSize: 18,
+      fontWeight: FontWeight.normal,
+    ),
+  );
+}
+
 TextStyle namestyle() {
   return GoogleFonts.poppins(
     textStyle: const TextStyle(
@@ -64,16 +74,6 @@ TextStyle namestyle3() {
   );
 }
 
-TextStyle username() {
-  return GoogleFonts.alice(
-    textStyle: const TextStyle(
-      color: Colors.black,
-      fontSize: 23,
-      fontWeight: FontWeight.normal,
-    ),
-  );
-}
-
 int _selectedIndex = 0;
 
 PageController _pageController = PageController();
@@ -96,22 +96,21 @@ class _UserScreenState extends State<UserScreen> {
     super.initState();
     user_email = FirebaseAuth.instance.currentUser!.email;
     getUserImg();
-    getcolor(user_email!);
   }
 
-  Future<Color?> getcolor(String email) async {
+  Future<String?> getuserscore(String eemail) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .collection('ColorMode')
-        .doc(email)
+        .collection('QuizScore')
+        .doc(eemail)
         .get();
 
     try {
-      color = await snapshot['color'];
+      final user_score = await snapshot['score'];
 
-      return color;
+      return user_score;
     } catch (e) {
-      print('Error fetching color: $e');
-      return colordefault;
+      print('Error fetching username: $e');
+      return null;
     }
   }
 
@@ -161,6 +160,26 @@ class _UserScreenState extends State<UserScreen> {
 
       _pageController.animateToPage(index,
           duration: const Duration(milliseconds: 250), curve: Curves.bounceIn);
+    }
+
+    TextStyle username() {
+      return GoogleFonts.alice(
+        textStyle: const TextStyle(
+          color: Colors.black,
+          fontSize: 23,
+          fontWeight: FontWeight.normal,
+        ),
+      );
+    }
+
+    TextStyle score() {
+      return GoogleFonts.poppins(
+        textStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.normal,
+        ),
+      );
     }
 
     return Scaffold(
@@ -291,99 +310,211 @@ class _UserScreenState extends State<UserScreen> {
           )
         ],
       ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: ListTile(
-                leading: const Neubox2(
-                  child: Icon(
-                    Icons.clear_outlined,
-                    color: Colors.black,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-            CircleAvatar(
-              radius: 60,
-              backgroundColor: Colors.black,
-              child: FutureBuilder<String?>(
-                future: user_dp_future,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(
+      drawer: FractionallySizedBox(
+        widthFactor: 0.9,
+        child: Drawer(
+          child: Column(
+            children: [
+              Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: ListTile(
+                        leading: const Neubox2(
+                          child: Icon(
+                            Icons.clear_outlined,
+                            color: Colors.black,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.black,
+                      child: FutureBuilder<String?>(
+                        future: user_dp_future,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const SizedBox(
+                              height: 10,
+                              width: 10,
+                              child: CircularProgressIndicator(
+                                backgroundColor: Colors.white,
+                              ),
+                            ); // Show a loading indicator while fetching the image URL
+                          } else if (snapshot.hasData &&
+                              snapshot.data != null) {
+                            return ClipOval(
+                              child: Image.network(
+                                snapshot.data!,
+                                fit: BoxFit.cover,
+                                height: 119,
+                                width: 119,
+                              ),
+                            ); // Display the image if available
+                          } else {
+                            return const Text(
+                                '!'); // Display a message if the image is not available
+                          }
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    FutureBuilder<String?>(
+                      future: fetchusernames(user_email!),
+                      builder: (context, profileUserName) {
+                        if (profileUserName.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (profileUserName.hasError) {
+                          return Text(
+                              'Error fetching profile username: ${profileUserName.error}');
+                        } else if (profileUserName.hasData) {
+                          final tt = profileUserName.data;
+                          if (tt != null) {
+                            return Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Text(
+                                tt,
+                                style: username(),
+                              ),
+                            );
+                          } else {
+                            return const Text('No profile picture available');
+                          }
+                        } else {
+                          return const Text('No profile picture available');
+                        }
+                      },
+                    ),
+                    const SizedBox(
                       height: 10,
-                      width: 10,
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                      ),
-                    ); // Show a loading indicator while fetching the image URL
-                  } else if (snapshot.hasData && snapshot.data != null) {
-                    return ClipOval(
-                      child: Image.network(
-                        snapshot.data!,
-                        fit: BoxFit.cover,
-                        height: 119,
-                        width: 119,
-                      ),
-                    ); // Display the image if available
-                  } else {
-                    return const Text(
-                        '!'); // Display a message if the image is not available
-                  }
-                },
+                    ),
+                    FutureBuilder<String?>(
+                      future: getuserscore(user_email!),
+                      builder: (context, profileUserScore) {
+                        if (profileUserScore.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (profileUserScore.hasError) {
+                          return Text(
+                              'Error fetching profile score: ${profileUserScore.error}');
+                        } else if (profileUserScore.hasData) {
+                          final tt = profileUserScore.data;
+                          if (tt != null) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: Colors.black, width: 1.5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Quiz Score : $tt',
+                                  style: score(),
+                                ),
+                              ),
+                            );
+                          } else {
+                            return const Text('No profile picture available');
+                          }
+                        } else {
+                          return const Text('No profile picture available');
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            FutureBuilder<String?>(
-              future: fetchusernames(user_email!),
-              builder: (context, profileUserName) {
-                if (profileUserName.connectionState ==
-                    ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (profileUserName.hasError) {
-                  return Text(
-                      'Error fetching profile picture: ${profileUserName.error}');
-                } else if (profileUserName.hasData) {
-                  final tt = profileUserName.data;
-                  if (tt != null) {
-                    return Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Text(
-                        tt,
-                        style: username(),
-                      ),
-                    );
-                  } else {
-                    return const Text('No profile picture available');
-                  }
-                } else {
-                  return const Text('No profile picture available');
-                }
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            ListTile(
-              contentPadding: EdgeInsets.all(20),
-              title: Text(
-                'View Profile',
-                style: namestyle1(),
+              const SizedBox(
+                height: 15,
               ),
-              trailing: const Icon(
-                Icons.arrow_forward_ios_outlined,
-                size: 20,
-                color: Colors.black,
+              ListTile(
+                
+                title: Text(
+                  'View Profile',
+                  style: namestyle1(),
+                ),
+                leading: const Icon(
+                  Icons.person_outline_outlined,
+                  size: 26,
+                  color: Colors.black,
+                ),
               ),
-            )
-          ],
+              ExpansionTile(
+                title: Text(
+                  'Module Analysis',
+                  style: namestyle1(),
+                ),
+                leading: const Icon(
+                  Icons.analytics_outlined,
+                  size: 26,
+                  color: Colors.black,
+                ),
+                childrenPadding: EdgeInsets.only(left: 90),
+                children: [
+                  ListTile(
+                    contentPadding: EdgeInsets.all(5),
+                    title: Text(
+                      'Budgeting',
+                      style: namestyle4(),
+                    ),
+                    trailing: const Icon(
+                      Icons.account_balance_wallet_rounded,
+                      size: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.all(5),
+                    title: Text(
+                      'Investing',
+                      style: namestyle4(),
+                    ),
+                    trailing: const Icon(
+                      Icons.monetization_on,
+                      size: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.all(5),
+                    title: Text(
+                      'Loans',
+                      style: namestyle4(),
+                    ),
+                    trailing: const Icon(
+                      Icons.credit_card,
+                      size: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.all(5),
+                    title: Text(
+                      'Stocks',
+                      style: namestyle4(),
+                    ),
+                    trailing: const Icon(
+                      Icons.show_chart,
+                      size: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       body: Column(
@@ -442,7 +573,7 @@ class _UserScreenState extends State<UserScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.settings,
+              Icons.settings_outlined,
               size: 23,
             ),
             label: 'Settings',

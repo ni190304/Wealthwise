@@ -91,6 +91,13 @@ class _ResultState extends State<Result> {
         .collection('User')
         .doc(current_email)
         .set({'email': current_email});
+
+    await FirebaseFirestore.instance
+        .collection('QuizScore')
+        .doc(current_email)
+        .set({
+      'score': '${correctly_answered.length} / ${answered_ques.length}'
+    });
   }
 
   @override
@@ -197,7 +204,7 @@ class _ResultState extends State<Result> {
                             color: Colors.black,
                           ),
                           backgroundColor: const Color.fromARGB(255, 29, 3, 3)),
-                      icon: const Icon(Icons.restart_alt_outlined),
+                      icon: const Icon(Icons.arrow_forward_ios_sharp),
                       label: Padding(
                         padding: const EdgeInsets.only(
                             top: 10.0, right: 10.0, left: 10.0),
