@@ -3,7 +3,15 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:wealthwise/actual/home/Stock/stock1.dart';
+import 'package:wealthwise/actual/home/Stock/Quotes/module1.dart';
+import 'Stock/Quotes/module2.dart';
+import 'Stock/Quotes/module3.dart';
+import 'Stock/Quotes/module4.dart';
+import 'Stock/Quotes/module5.dart';
+import 'Stock/Quotes/stock1.dart';
+import 'Stock/Quotes/stock2.dart';
+import 'Stock/Quotes/stock3.dart';
+import 'Stock/Quotes/stock4.dart';
 
 class Stocks extends StatefulWidget {
   const Stocks({super.key});
@@ -22,9 +30,12 @@ TextStyle namestyle1() {
   );
 }
 
-final PageController pgcontroller = PageController();
+final PageController pgcontroller1 = PageController();
+final PageController pgcontroller2 = PageController();
 
 class _StocksState extends State<Stocks> {
+  var isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,14 +52,14 @@ class _StocksState extends State<Stocks> {
                     'Some popular quotes',
                     style: namestyle1(),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Container(
                     height: 160,
                     child: PageView(
-                      controller: pgcontroller,
-                      children: const [Stock1(), Stock1(), Stock1(), Stock1()],
+                      controller: pgcontroller1,
+                      children: const [Stock1(), Stock2(), Stock3(), Stock4()],
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -56,7 +67,7 @@ class _StocksState extends State<Stocks> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SmoothPageIndicator(
-                        controller: pgcontroller,
+                        controller: pgcontroller1,
                         count: 4,
                         effect: WormEffect(
                             activeDotColor:
@@ -69,7 +80,7 @@ class _StocksState extends State<Stocks> {
                     ],
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
                   Text(
                     'Basics',
@@ -78,13 +89,63 @@ class _StocksState extends State<Stocks> {
                   const SizedBox(
                     height: 13,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.center,
                     child: Text(
                       'Stocks, also known as equities or shares, represent ownership in a company. When you buy a stock, you acquire a stake in that company, becoming a shareholder with potential voting rights and the possibility of receiving dividends. Stocks are traded on stock exchanges, where their prices fluctuate based on various factors. Investing in stocks can offer opportunities for capital gains, but it also comes with risk due to market volatility. Diversification and thorough research are essential for managing these risks, and many investors choose stocks as a long-term investment to benefit from the growth potential of companies over time.',
-                      style: TextStyle(fontSize: 16),
+                      maxLines: isExpanded ? 13 : 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                    },
+                    child: Text(
+                      isExpanded ? 'See Less' : 'See More',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Modules',
+                    style: namestyle1(),
+                  ),
+                  const SizedBox(
+                    height: 13,
+                  ),
+                  const SizedBox(
+                    height: 13,
+                  ),
+                  Column(
+                    children: [
+                      Container(height: 160, child: Module1()),
+                      const SizedBox(
+                        height: 13,
+                      ),
+                      Container(height: 160, child: Module2()),
+                      const SizedBox(
+                        height: 13,
+                      ),
+                      Container(height: 160, child: Module3()),
+                      const SizedBox(
+                        height: 13,
+                      ),
+                      Container(height: 160, child: Module4()),
+                      const SizedBox(
+                        height: 13,
+                      ),
+                      Container(height: 160, child: Module5()),
+                    ],
+                  )
                 ],
               ),
             ),
