@@ -55,10 +55,10 @@ TextStyle namestyle() {
 }
 
 TextStyle namestyle2() {
-  return GoogleFonts.passionsConflict(
+  return GoogleFonts.ebGaramond(
     textStyle: const TextStyle(
       color: Colors.black,
-      fontSize: 65,
+      fontSize: 40,
       fontWeight: FontWeight.normal,
     ),
   );

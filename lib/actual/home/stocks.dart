@@ -13,12 +13,28 @@ import 'Stock/Quotes/stock2.dart';
 import 'Stock/Quotes/stock3.dart';
 import 'Stock/Quotes/stock4.dart';
 
+TextStyle t1() {
+  return GoogleFonts.ebGaramond(
+    fontSize: 20,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+  );
+}
+
 class Stocks extends StatefulWidget {
   const Stocks({super.key});
 
   @override
   State<Stocks> createState() => _StocksState();
 }
+
+List<String> stockmodules = [
+  'Stock Basics',
+  'How to invest in stocks (for beginners)',
+  'Stock Exchange',
+  'Stock Market Indices',
+  'Stock analysis and Risk-reward factor'
+];
 
 TextStyle namestyle1() {
   return GoogleFonts.poppins(
@@ -98,6 +114,7 @@ class _StocksState extends State<Stocks> {
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
+                  
                   InkWell(
                     onTap: () {
                       setState(() {
@@ -112,6 +129,7 @@ class _StocksState extends State<Stocks> {
                       ),
                     ),
                   ),
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -145,7 +163,54 @@ class _StocksState extends State<Stocks> {
                       ),
                       Container(height: 160, child: Module5()),
                     ],
-                  )
+                  ),
+                  // ListView.builder(
+                  //   itemCount: 5,
+                  //   itemBuilder: (context, index) {
+                  //     return Padding(
+                  //       padding: const EdgeInsets.only(right: 10.0),
+                  //       child: Container(
+                  //         decoration: BoxDecoration(
+                  //           border: Border.all(color: Colors.black, width: 0.5),
+                  //           borderRadius: BorderRadius.circular(10),
+                  //           color:
+                  //               Theme.of(context).colorScheme.primaryContainer,
+                  //         ),
+                  //         height: 220,
+                  //         width: double.infinity,
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.all(8.0),
+                  //           child: Column(
+                  //             mainAxisAlignment: MainAxisAlignment.start,
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             children: [
+                  //               CircleAvatar(
+                  //                   backgroundColor:
+                  //                       Theme.of(context).colorScheme.primary,
+                  //                   child: Text(
+                  //                     (index + 1).toString(),
+                  //                     style: TextStyle(
+                  //                         color: Colors.white, fontSize: 15),
+                  //                   )),
+                  //               const SizedBox(
+                  //                 height: 20.0,
+                  //               ),
+                  //               Row(
+                  //                 mainAxisAlignment: MainAxisAlignment.center,
+                  //                 children: [
+                  //                   Text(
+                  //                     stockmodules[index],
+                  //                     style: t1(),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ),
