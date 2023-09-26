@@ -56,7 +56,7 @@ class Module1 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Stock Basics',
+                        tt,
                         style: t1(),
                       ),
                     ],

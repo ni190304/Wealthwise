@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wealthwise/designed_boxes/neubox7.dart';
 
-class ModStock1 extends StatefulWidget {
-  const ModStock1({super.key, required this.name});
+class ModLoan1 extends StatefulWidget {
+  const ModLoan1({super.key, required this.name});
 
   final String name;
 
   @override
-  State<ModStock1> createState() => _ModStock1State();
+  State<ModLoan1> createState() => _ModLoan1State();
 }
 
-class _ModStock1State extends State<ModStock1> {
+class _ModLoan1State extends State<ModLoan1> {
   TextStyle namestyle1() {
     return GoogleFonts.arvo(
       textStyle: TextStyle(
@@ -48,7 +48,7 @@ class _ModStock1State extends State<ModStock1> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 250,
+                height: 175,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -62,14 +62,14 @@ class _ModStock1State extends State<ModStock1> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'What Are Stocks?',
+                        'What Are Loans?',
                         style: namestyle1(),
                       ),
                       const SizedBox(
                         height: 13,
                       ),
                       const Text(
-                        'Stocks represent ownership shares in a company. When you buy a stock, you become a shareholder or stockholder, which means you own a part of that company. Think of it like owning a piece of a pie – the size of your piece depends on how many shares you own compared to the total number of shares the company has issued.',
+                        'A loan is a financial transaction where one party, known as the lender, provides a sum of money or assets to another party, known as the borrower. The borrower agrees to repay the borrowed amount, often with interest and fees, over a specified period.',
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
@@ -80,7 +80,7 @@ class _ModStock1State extends State<ModStock1> {
                 height: 16,
               ),
               Container(
-                height: 350,
+                height: 500,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -94,31 +94,24 @@ class _ModStock1State extends State<ModStock1> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Why Companies Issue Stocks:',
+                        'Types of Loans: ',
                         style: namestyle1(),
                       ),
                       const SizedBox(
                         height: 13,
                       ),
-                      const Text(
-                        'Companies issue stocks as a way to raise capital (money). They do this for various reasons:',
-                        style: TextStyle(fontSize: 19),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
                       const Text.rich(
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: 'Expansion: ',
+                              text: 'Secured Loans: ',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             TextSpan(
                               text:
-                                  'To fund business growth, open new locations, or enter new markets.',
+                                  "These loans are backed by something valuable, like a house or car.If you can't repay, the lender can take that valuable thing as payment.Generally, secured loans have lower interest rates because they're less risky for the lender.",
                             )
                           ],
                         ),
@@ -131,14 +124,14 @@ class _ModStock1State extends State<ModStock1> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: 'Research and Development: ',
+                              text: 'Unsecured Loans: ',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             TextSpan(
                                 text:
-                                    'To invest in research, develop new products, or improve existing ones.')
+                                    "These loans don't require any collateral (valuable thing).Since there's no guarantee for the lender, unsecured loans often have higher interest rates.")
                           ],
                         ),
                         style: TextStyle(fontSize: 16),
@@ -150,14 +143,14 @@ class _ModStock1State extends State<ModStock1> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: 'Debt Repayment: ',
+                              text: 'Personal Loans: ',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             TextSpan(
                                 text:
-                                    'To pay off debts or reduce interest expenses.')
+                                    ' These loans are typically unsecured and can be used for various purposes, such as debt consolidation, travel, or unexpected expenses.')
                           ],
                         ),
                         style: TextStyle(fontSize: 16),
@@ -169,14 +162,71 @@ class _ModStock1State extends State<ModStock1> {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: 'Acquisitions: ',
+                              text: 'Student Loans: ',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             TextSpan(
                                 text:
-                                    'To acquire other companies or assets.Operational Needs: To have cash on hand for day-to-day operations.')
+                                    'Most student loans, both federal and private, are unsecured.')
+                          ],
+                        ),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Medical Loans: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                                text:
+                                    'Loans for medical expenses are usually unsecured.')
+                          ],
+                        ),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Payday Loans: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                                text:
+                                    'These short-term loans are typically unsecured but often come with high interest rates.')
+                          ],
+                        ),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Signature Loans: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                                text:
+                                    'These are unsecured personal loans where your promise to repay serves as the only guarantee.')
                           ],
                         ),
                         style: TextStyle(fontSize: 16),
@@ -189,7 +239,7 @@ class _ModStock1State extends State<ModStock1> {
                 height: 16,
               ),
               Container(
-                height: 350,
+                height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -203,81 +253,14 @@ class _ModStock1State extends State<ModStock1> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Why Invest in Stocks?',
+                        'Interest Rates',
                         style: namestyle1(),
                       ),
                       const SizedBox(
                         height: 13,
                       ),
-                      Text(
-                        'Investing in stocks can offer several advantages, including:',
-                        style: TextStyle(fontSize: 19),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      const Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Potential for High Returns: ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            TextSpan(
-                                text:
-                                    'Historically, stocks have provided some of the highest long-term returns among all investment options.')
-                          ],
-                        ),
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      const Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Ownership and Voting Rights: ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            TextSpan(
-                                text:
-                                    "Stockholders may have the right to vote on certain company decisions and receive dividends, which are a portion of the company's profits distributed to shareholders.")
-                          ],
-                        ),
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      const Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Liquidity: ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            TextSpan(
-                                text:
-                                    'Stocks are generally easy to buy and sell, making them a liquid investment.')
-                          ],
-                        ),
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      const Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Diversification: ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            TextSpan(
-                                text:
-                                    'You can diversify your portfolio by investing in a variety of stocks, reducing risk')
-                          ],
-                        ),
+                      const Text(
+                        'Interest is the cost of borrowing money. When you take out a loan, you agree to pay back not only the principal amount (the original borrowed sum) but also the interest, which is calculated as a percentage of the principal.Interest rates can be fixed (remain constant throughout the loan term) or variable (change with market conditions).',
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
@@ -285,10 +268,10 @@ class _ModStock1State extends State<ModStock1> {
                 ),
               ),
               const SizedBox(
-                height: 12,
+                height: 16,
               ),
               Container(
-                height: 550,
+                height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -297,53 +280,57 @@ class _ModStock1State extends State<ModStock1> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Types of Stocks:',
+                        'Loan Term',
                         style: namestyle1(),
                       ),
                       const SizedBox(
                         height: 13,
                       ),
                       const Text(
-                        'There are two main types of stocks: common stocks and preferred stocks.',
-                        style: TextStyle(fontSize: 19),
-                      ),
-                      SizedBox(
-                        height: 13,
-                      ),
-                      Text(
-                        'Common Stocks:',
-                        style: TextStyle(fontSize: 18.5, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "These are the most common type of stock.Common stockholders have voting rights at the company's annual meetings, where they can voice opinions and vote on important company decisions.They may also receive dividends, which are a portion of the company's profits distributed to shareholders.Common stockholders benefit from any increase in the company's stock price.However, they also bear the most risk if the company faces financial difficulties.",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      SizedBox(
-                        height: 13,
-                      ),
-                      Text(
-                        'Preferred Stocks:',
-                        style: TextStyle(fontSize: 18.5, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Preferred stockholders don't usually have voting rights, but they have a higher claim on the company's assets and earnings than common stockholders.They receive dividends before common stockholders and have a fixed dividend rate.In the event of bankruptcy or liquidation, preferred stockholders are prioritized over common stockholders for the distribution of assets.",
+                        "The loan term is the duration over which you'll repay the loan. Loan terms vary widely, from a few months (e.g., payday loans) to several decades (e.g., mortgages).Shorter loan terms often result in higher monthly payments but lower overall interest costs, while longer terms have lower monthly payments but higher total interest.",
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromARGB(255, 55, 54, 54), width: 0.25),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Repayment',
+                        style: namestyle1(),
+                      ),
+                      const SizedBox(
+                        height: 13,
+                      ),
+                      const Text(
+                        "Loans are typically repaid in regular installments (monthly, bi-weekly, etc.). It's crucial to make timely payments to avoid penalties and protect your credit score.Some loans offer flexible repayment options, such as deferment, forbearance, or income-driven repayment plans for student loans.",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

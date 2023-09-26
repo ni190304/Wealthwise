@@ -29,58 +29,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          // const SizedBox(
-          //   height: 5,
-          // ),
-          GNav(
-            backgroundColor: Colors.white,
-            selectedIndex: currentIndex,
-            color: Colors.black,
-            activeColor: Colors.white,
-            tabBackgroundColor: Theme.of(context).colorScheme.primary,
-            onTabChange: _onTabTapped,
-            gap: 15,
-            padding: const EdgeInsets.only(
-                left: 15, right: 15, top: 13.5, bottom: 13.5),
-            tabs: const [
-              GButton(
-                icon: Icons.account_balance_wallet_rounded,
-                text: 'Budgeting',
-              ),
-              GButton(
-                icon: Icons.monetization_on,
-                text: 'Investing',
-              ),
-              GButton(
-                icon: Icons.credit_card,
-                text: 'Loans',
-              ),
-              GButton(
-                icon: Icons.show_chart,
-                text: 'Stocks',
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Expanded(
-            child: PageView(
-              controller: _pageController,
-              children: screens,
-              onPageChanged: (index) {
-                setState(() {
-                  currentIndex =
-                      index; // Update currentIndex when PageView page changes
-                });
-              },
-            ),
-          ),
-        ],
-      ),
+      body: Stocks()
     );
   }
 }

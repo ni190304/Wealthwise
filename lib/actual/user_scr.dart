@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:wealthwise/actual/Expense/main.dart';
 import 'package:wealthwise/actual/dashboard.dart';
 import 'package:wealthwise/actual/settings.dart';
 import 'package:wealthwise/alternate/home.dart';
@@ -80,8 +81,7 @@ PageController _pageController = PageController();
 
 final List<Widget> screens = [
   const Home(),
-  const Dashboard(),
-  const Sett(),
+  const MyExpenseTracker(),
 ];
 
 class _UserScreenState extends State<UserScreen> {
@@ -198,14 +198,15 @@ class _UserScreenState extends State<UserScreen> {
                   Scaffold.of(context).openDrawer();
                 },
                 icon: Padding(
-                  padding: const EdgeInsets.only(left:7.0,top: 7.0),
+                  padding: const EdgeInsets.only(left: 7.0, top: 7.0),
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: Colors.black,
                     child: FutureBuilder<String?>(
                       future: user_dp_future, // Use the Future here
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const SizedBox(
                             height: 10,
                             width: 10,
@@ -443,7 +444,6 @@ class _UserScreenState extends State<UserScreen> {
                 height: 15,
               ),
               ListTile(
-                
                 title: Text(
                   'View Profile',
                   style: namestyle1(),
@@ -565,23 +565,12 @@ class _UserScreenState extends State<UserScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.video_collection_outlined,
+              Icons.monetization_on_outlined,
               size: 23,
             ),
-            label: 'Your Videos',
+            label: 'Expense Tracker',
             activeIcon: Icon(
-              Icons.video_collection,
-              size: 29,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings_outlined,
-              size: 23,
-            ),
-            label: 'Settings',
-            activeIcon: Icon(
-              Icons.settings,
+              Icons.monetization_on,
               size: 29,
             ),
           ),

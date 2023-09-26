@@ -14,12 +14,12 @@ class QuizQuestion {
 
 const questions = [
   QuizQuestion(
-    'Which country has Tegucigalpa as its capital?',
+    ' What is the purpose of crea�ng a personal budget?',
     [
-      'Honduras',
-      'Bolivia',
-      'Peru',
-      'Chile',
+       'To increase spending on non-essen�al items',
+ 'To track income and expenses and plan for financial goals',
+ 'To invest in high-risk stocks',
+'To pay off all debts at once'
     ],
   ),
   QuizQuestion(
