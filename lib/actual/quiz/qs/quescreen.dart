@@ -84,7 +84,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             if (correct_answers.contains(answer)) {
                               correctly_answered.add(answer);
                             }
-                            if (current_question_index == 5) {
+                            if (current_question_index == 9) {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
                                 return Result(
