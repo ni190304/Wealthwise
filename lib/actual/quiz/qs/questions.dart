@@ -78,3 +78,108 @@ const questions = [
 'Credit score only affects the approval process, not interest rates.'
   ]),
 ];
+
+const questions1 = [
+  QuizQuestion(
+    '  What do stocks represent?',
+    [
+       'Shares in a bank account.',
+'Ownership shares in a company.',
+'Pieces of real estate.',
+'Shares in a mutual fund.'
+
+    ],
+  ),
+
+  QuizQuestion(
+    ' Why do companies issue stocks?',
+    [
+       'To pay off debts.',
+'To fund business growth and expansion.',
+'To invest in research and development.',
+'To purchase assets.'
+
+    ],
+  ),
+  QuizQuestion(
+      "What advantage do common stockholders have over preferred stockholders?", [
+     'Higher claim on company assets.',
+'Fixed dividend rate.',
+'Voting rights.',
+'Priority in receiving dividends.'
+
+  ]),
+  
+  QuizQuestion(
+      ' What is the main advantage of investing in stocks mentioned in the passage??',
+      [
+         'Guaranteed fixed returns.',
+'Potential for high returns.',
+'Low liquidity.',
+ 'Limited diversification.'
+
+      ]),
+  
+];
+
+const questions2 = [
+  QuizQuestion(
+    'What is the primary purpose of a Demat account in the context of stock market investing?',
+    [
+       'To invest directly in stocks.',
+'To store and manage electronic shares and securities.',
+'To trade commodities.',
+'To manage a retirement fund.'
+
+
+    ],
+  ),
+
+  QuizQuestion(
+    'Which type of Demat account is suitable for Non-Resident Indians (NRIs) who want to invest in the Indian stock market?',
+    [
+      'Regular Demat account',
+'Repatriable Demat account',
+'Non-repatriable Demat account',
+'Joint Demat account',
+
+
+    ],
+  ),
+  QuizQuestion(
+      "What is the advantage of investing in Exchange-Traded Funds (ETFs) for beginners, according to the passage?", [
+     'ETFs offer high returns in a short time.',
+'ETFs allow for active management of investments.',
+'ETFs provide diversification and are a good choice for starters.',
+'ETFs are like buying individual stocks.'
+
+
+  ]),
+  
+  QuizQuestion(
+      'Why is it important to diversify your investment portfolio?',
+      [
+         'To focus on a single stock for maximum profit.',
+'To minimize investment risk by spreading it across different assets.',
+'To avoid taxes on investment gains.',
+'To increase short-term returns.'
+
+
+      ]),
+
+      QuizQuestion(
+      'What is the recommended approach for beginners when investing in stocks?',
+      [
+         'Frequent trading to take advantage of market fluctuations.',
+'Avoid monitoring investments to reduce stress.',
+'Dollar-cost averaging by investing a fixed amount regularly.',
+'Selling all investments during market downturns.'
+
+
+
+      ]),
+  
+];
+
+
+

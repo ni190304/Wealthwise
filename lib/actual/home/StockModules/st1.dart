@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wealthwise/actual/quiz/qs/quescreen1.dart';
 import 'package:wealthwise/designed_boxes/neubox7.dart';
+
+import '../../quiz/qs/quescreen.dart';
 
 class ModStock1 extends StatefulWidget {
   const ModStock1({super.key, required this.name});
@@ -9,6 +12,15 @@ class ModStock1 extends StatefulWidget {
 
   @override
   State<ModStock1> createState() => _ModStock1State();
+}
+
+TextStyle _getTextStyle2() {
+  return GoogleFonts.katibeh(
+    textStyle: const TextStyle(
+      color: Colors.white,
+      fontSize: 30,
+    ),
+  );
 }
 
 class _ModStock1State extends State<ModStock1> {
@@ -343,7 +355,41 @@ class _ModStock1State extends State<ModStock1> {
                     ],
                   ),
                 ),
-              )
+              ),
+
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 35.0),
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const QuestionsScreen1();
+                          },
+                        ));
+                      },
+                      style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          side: const BorderSide(
+                            width: 1.0,
+                            color: Colors.black,
+                          ),
+                          backgroundColor: const Color.fromARGB(255, 29, 3, 3)),
+                      icon: const Icon(Icons.restart_alt_outlined),
+                      label: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10.0, right: 10.0, left: 10.0),
+                        child: Text(
+                          'Take up a Quiz',
+                          textAlign: TextAlign.center,
+                          style: _getTextStyle2(),
+                        ),
+                      ),
+                    ),
+                  ),
+              ),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wealthwise/actual/quiz/qs/quescreen2.dart';
 import 'package:wealthwise/designed_boxes/neubox7.dart';
 
 class ModStock2 extends StatefulWidget {
@@ -9,6 +10,15 @@ class ModStock2 extends StatefulWidget {
 
   @override
   State<ModStock2> createState() => _ModStock2State();
+}
+
+TextStyle _getTextStyle2() {
+  return GoogleFonts.katibeh(
+    textStyle: const TextStyle(
+      color: Colors.white,
+      fontSize: 30,
+    ),
+  );
 }
 
 class _ModStock2State extends State<ModStock2> {
@@ -495,6 +505,40 @@ class _ModStock2State extends State<ModStock2> {
                     ],
                   ),
                 ),
+              ),
+
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 35.0),
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const QuestionsScreen2();
+                          },
+                        ));
+                      },
+                      style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          side: const BorderSide(
+                            width: 1.0,
+                            color: Colors.black,
+                          ),
+                          backgroundColor: const Color.fromARGB(255, 29, 3, 3)),
+                      icon: const Icon(Icons.restart_alt_outlined),
+                      label: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10.0, right: 10.0, left: 10.0),
+                        child: Text(
+                          'Take up a Quiz',
+                          textAlign: TextAlign.center,
+                          style: _getTextStyle2(),
+                        ),
+                      ),
+                    ),
+                  ),
               ),
               
             ],

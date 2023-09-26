@@ -173,10 +173,7 @@ class _StocksState extends State<Stocks> {
                       height: 13,
                     ),
                     Container(height: 160, child: Module4()),
-                    const SizedBox(
-                      height: 13,
-                    ),
-                    Container(height: 160, child: Module5()),
+                    
                   ],
                 ),
               ],

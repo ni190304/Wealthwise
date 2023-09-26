@@ -44,7 +44,7 @@ class _StartState extends State<Start> {
       theme: ThemeData.from(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(159, 8, 52, 84),
+          seedColor: Color.fromARGB(159, 3, 25, 41),
         ),
       ),
       title: 'Wealthwise',

@@ -45,7 +45,7 @@ class Module4 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Stock Market Indices',
+                      'Insurance',
                       style: t1(),
                     ),
                   ],

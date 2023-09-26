@@ -16,6 +16,35 @@ final correct_answers = [
   'Higher credit scores typically lead to faster loan approvals and lower interest rates.',
 ];
 
+final correct_answers1 = [
+  'Ownership shares in a company.',
+  'To fund business growth and expansion.',
+  'Voting rights.',
+  'Potential for high returns.',
+];
+
+final correct_answers2 = [
+  'To store and manage electronic shares and securities.',
+  'Non-repatriable Demat account',
+  'ETFs provide diversification and are a good choice for starters.',
+  'To minimize investment risk by spreading it across different assets.',
+  'Dollar-cost averaging by investing a fixed amount regularly.',
+];
+
+
+
 final answered_ques = [];
 
 final correctly_answered = [];
+
+final answered_ques1 = [];
+
+final correctly_answered1 = [];
+
+final answered_ques2 = [];
+
+final correctly_answered2 = [];
+
+
+
+
