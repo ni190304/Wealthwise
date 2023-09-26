@@ -58,7 +58,7 @@ TextStyle namestyle() {
 TextStyle namestyle2() {
   return GoogleFonts.ebGaramond(
     textStyle: const TextStyle(
-      color: Colors.black,
+      color: Colors.white,
       fontSize: 40,
       fontWeight: FontWeight.normal,
     ),
@@ -185,7 +185,7 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         leading: Builder(
           builder: (BuildContext context) {
@@ -265,53 +265,53 @@ class _UserScreenState extends State<UserScreen> {
           //       color: Colors.black,
           //       size: 25,
           //     )),
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              switch (value) {
-                case 'option1':
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return TutorSett();
-                    },
-                  ));
-                  break;
-                case 'option2':
-                  FirebaseAuth.instance.signOut();
-                  break;
-                default:
-              }
-            },
-            itemBuilder: (context) {
-              return [
-                PopupMenuItem<String>(
-                  value: 'option1',
-                  child: Theme(
-                    data: ThemeData(
-                      highlightColor:
-                          Colors.blue, // Set your desired background color here
-                    ),
-                    child: Text(
-                      'Settings',
-                      style: namestyle3(),
-                    ),
-                  ),
-                ),
-                PopupMenuItem<String>(
-                  value: 'option2',
-                  child: Theme(
-                    data: ThemeData(
-                      highlightColor:
-                          Colors.blue, // Set your desired background color here
-                    ),
-                    child: Text(
-                      'Logout',
-                      style: namestyle3(),
-                    ),
-                  ),
-                ),
-              ];
-            },
-          )
+          // PopupMenuButton<String>(
+          //   onSelected: (value) {
+          //     switch (value) {
+          //       case 'option1':
+          //         Navigator.push(context, MaterialPageRoute(
+          //           builder: (context) {
+          //             return TutorSett();
+          //           },
+          //         ));
+          //         break;
+          //       case 'option2':
+          //         FirebaseAuth.instance.signOut();
+          //         break;
+          //       default:
+          //     }
+          //   },
+          //   itemBuilder: (context) {
+          //     return [
+          //       PopupMenuItem<String>(
+          //         value: 'option1',
+          //         child: Theme(
+          //           data: ThemeData(
+          //             highlightColor:
+          //                 Colors.blue, // Set your desired background color here
+          //           ),
+          //           child: Text(
+          //             'Settings',
+          //             style: namestyle3(),
+          //           ),
+          //         ),
+          //       ),
+          //       PopupMenuItem<String>(
+          //         value: 'option2',
+          //         child: Theme(
+          //           data: ThemeData(
+          //             highlightColor:
+          //                 Colors.blue, // Set your desired background color here
+          //           ),
+          //           child: Text(
+          //             'Logout',
+          //             style: namestyle3(),
+          //           ),
+          //         ),
+          //       ),
+          //     ];
+          //   },
+          // )
         ],
       ),
       drawer: FractionallySizedBox(
@@ -469,7 +469,7 @@ class _UserScreenState extends State<UserScreen> {
                   ListTile(
                     contentPadding: EdgeInsets.all(5),
                     title: Text(
-                      'Budgeting',
+                      'Stocks Basics',
                       style: namestyle4(),
                     ),
                     trailing: const Icon(
@@ -481,7 +481,7 @@ class _UserScreenState extends State<UserScreen> {
                   ListTile(
                     contentPadding: EdgeInsets.all(5),
                     title: Text(
-                      'Investing',
+                      'How to invest in Stocks',
                       style: namestyle4(),
                     ),
                     trailing: const Icon(
@@ -493,7 +493,7 @@ class _UserScreenState extends State<UserScreen> {
                   ListTile(
                     contentPadding: EdgeInsets.all(5),
                     title: Text(
-                      'Loans',
+                      'Loans Basics',
                       style: namestyle4(),
                     ),
                     trailing: const Icon(
@@ -505,7 +505,7 @@ class _UserScreenState extends State<UserScreen> {
                   ListTile(
                     contentPadding: EdgeInsets.all(5),
                     title: Text(
-                      'Stocks',
+                      'Insurance',
                       style: namestyle4(),
                     ),
                     trailing: const Icon(
@@ -523,10 +523,7 @@ class _UserScreenState extends State<UserScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Divider(
-            color: Color.fromARGB(255, 227, 223, 223),
-            thickness: 0.9,
-          ),
+          
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
