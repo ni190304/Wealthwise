@@ -197,34 +197,37 @@ class _UserScreenState extends State<UserScreen> {
                 onPressed: () {
                   Scaffold.of(context).openDrawer();
                 },
-                icon: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.black,
-                  child: FutureBuilder<String?>(
-                    future: user_dp_future, // Use the Future here
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const SizedBox(
-                          height: 10,
-                          width: 10,
-                          child: CircularProgressIndicator(
-                            backgroundColor: Colors.white,
-                          ),
-                        ); // Show a loading indicator while fetching the image URL
-                      } else if (snapshot.hasData && snapshot.data != null) {
-                        return ClipOval(
-                          child: Image.network(
-                            snapshot.data!,
-                            fit: BoxFit.cover,
-                            height: 39,
-                            width: 39,
-                          ),
-                        ); // Display the image if available
-                      } else {
-                        return const Text(
-                            '!'); // Display a message if the image is not available
-                      }
-                    },
+                icon: Padding(
+                  padding: const EdgeInsets.only(left:7.0,top: 7.0),
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.black,
+                    child: FutureBuilder<String?>(
+                      future: user_dp_future, // Use the Future here
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const SizedBox(
+                            height: 10,
+                            width: 10,
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.white,
+                            ),
+                          ); // Show a loading indicator while fetching the image URL
+                        } else if (snapshot.hasData && snapshot.data != null) {
+                          return ClipOval(
+                            child: Image.network(
+                              snapshot.data!,
+                              fit: BoxFit.cover,
+                              height: 39,
+                              width: 39,
+                            ),
+                          ); // Display the image if available
+                        } else {
+                          return const Text(
+                              '!'); // Display a message if the image is not available
+                        }
+                      },
+                    ),
                   ),
                 ),
                 iconSize: 28,

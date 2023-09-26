@@ -13,16 +13,9 @@ class Neubox7 extends StatelessWidget {
       height: 250,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Colors.grey[100],
+          color: Color.fromARGB(255, 236, 233, 233),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.shade500,
-                blurRadius: 15,
-                offset: Offset(5, 5)),
-            const BoxShadow(
-                color: Colors.white, blurRadius: 15, offset: Offset(-5, -5))
-          ]),
+          ),
     );
   }
 }

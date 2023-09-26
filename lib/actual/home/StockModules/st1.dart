@@ -25,6 +25,7 @@ class _ModStock1State extends State<ModStock1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.red,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Row(
@@ -45,113 +46,140 @@ class _ModStock1State extends State<ModStock1> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Neubox7(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'What Are Stocks?',
-                      style: namestyle1(),
-                    ),
-                    const SizedBox(
-                      height: 13,
-                    ),
-                    const Text(
-                      'Stocks represent ownership shares in a company. When you buy a stock, you become a shareholder or stockholder, which means you own a part of that company. Think of it like owning a piece of a pie – the size of your piece depends on how many shares you own compared to the total number of shares the company has issued.',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
+              Container(
+                height: 250,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color.fromARGB(255, 126, 123, 123),width: 0.1),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'What Are Stocks?',
+                        style: namestyle1(),
+                      ),
+                      const SizedBox(
+                        height: 13,
+                      ),
+                      const Text(
+                        'Stocks represent ownership shares in a company. When you buy a stock, you become a shareholder or stockholder, which means you own a part of that company. Think of it like owning a piece of a pie – the size of your piece depends on how many shares you own compared to the total number of shares the company has issued.',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 16,
               ),
-              Text(
-                'Why Companies Issue Stocks:',
-                style: namestyle1(),
-              ),
-              const SizedBox(
-                height: 13,
-              ),
-              const Text(
-                'Companies issue stocks as a way to raise capital (money). They do this for various reasons:',
-                style: TextStyle(fontSize: 19),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Expansion: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(
-                      text:
-                          'To fund business growth, open new locations, or enter new markets.',
-                    )
-                  ],
+              Container(
+                height: 350,
+                
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color.fromARGB(255, 126, 123, 123),width: 0.1),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              const Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Research and Development: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Why Companies Issue Stocks:',
+                        style: namestyle1(),
                       ),
-                    ),
-                    TextSpan(
-                        text:
-                            'To invest in research, develop new products, or improve existing ones.')
-                  ],
-                ),
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              const Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Debt Repayment: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                      const SizedBox(
+                        height: 13,
                       ),
-                    ),
-                    TextSpan(
-                        text: 'To pay off debts or reduce interest expenses.')
-                  ],
-                ),
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              const Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Acquisitions: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                      const Text(
+                        'Companies issue stocks as a way to raise capital (money). They do this for various reasons:',
+                        style: TextStyle(fontSize: 19),
                       ),
-                    ),
-                    TextSpan(
-                        text:
-                            'To acquire other companies or assets.Operational Needs: To have cash on hand for day-to-day operations.')
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Expansion: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text:
+                                  'To fund business growth, open new locations, or enter new markets.',
+                            )
+                          ],
+                        ),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Research and Development: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                                text:
+                                    'To invest in research, develop new products, or improve existing ones.')
+                          ],
+                        ),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Debt Repayment: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                                text: 'To pay off debts or reduce interest expenses.')
+                          ],
+                        ),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Acquisitions: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                                text:
+                                    'To acquire other companies or assets.Operational Needs: To have cash on hand for day-to-day operations.')
+                          ],
+                        ),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
                 ),
-                style: TextStyle(fontSize: 16),
               ),
               const SizedBox(
                 height: 16,
