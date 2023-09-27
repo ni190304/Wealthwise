@@ -31,6 +31,16 @@ final correct_answers2 = [
   'Dollar-cost averaging by investing a fixed amount regularly.',
 ];
 
+final correct_answers3 = [
+  'Secured loans have lower interest rates, while unsecured loans have higher interest rates.',
+  'Personal loan',
+  "To compensate the lender for lending money.",
+   'Mortgage loan',
+  'It calculates the monthly repayment amount and total interest for a loan.',
+];
+
+
+
 
 
 final answered_ques = [];
@@ -44,6 +54,10 @@ final correctly_answered1 = [];
 final answered_ques2 = [];
 
 final correctly_answered2 = [];
+
+final answered_ques3 = [];
+
+final correctly_answered3 = [];
 
 
 

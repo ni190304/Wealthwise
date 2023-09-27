@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:wealthwise/start.dart';
 
 class Splash extends StatelessWidget {
   const Splash({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 4), () {
-      
-      print('Hi');
+    Future.delayed(const Duration(seconds: 6), () {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return Start();
+        },
+      ));
     });
 
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
-        child: CircularProgressIndicator(
-          color: Colors.black,
-        ),
-      ),
+          child: Container(
+        width: 300,
+        height: 200,
+        child: Image.asset('lib/pics/wealth.png'),
+      )),
     );
   }
 }

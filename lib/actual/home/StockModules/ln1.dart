@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wealthwise/actual/quiz/qs/quescreen3.dart';
 import 'package:wealthwise/designed_boxes/neubox7.dart';
 
 class ModLoan1 extends StatefulWidget {
@@ -21,6 +22,15 @@ class _ModLoan1State extends State<ModLoan1> {
       ),
     );
   }
+
+  TextStyle _getTextStyle2() {
+  return GoogleFonts.katibeh(
+    textStyle: const TextStyle(
+      color: Colors.white,
+      fontSize: 30,
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -330,6 +340,40 @@ class _ModLoan1State extends State<ModLoan1> {
                     ],
                   ),
                 ),
+              ),
+
+                            Align(
+                alignment: Alignment.center,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 35.0),
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const QuestionsScreen3();
+                          },
+                        ));
+                      },
+                      style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          side: const BorderSide(
+                            width: 1.0,
+                            color: Colors.black,
+                          ),
+                          backgroundColor: const Color.fromARGB(255, 29, 3, 3)),
+                      icon: const Icon(Icons.restart_alt_outlined),
+                      label: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10.0, right: 10.0, left: 10.0),
+                        child: Text(
+                          'Take up a Quiz',
+                          textAlign: TextAlign.center,
+                          style: _getTextStyle2(),
+                        ),
+                      ),
+                    ),
+                  ),
               ),
             ],
           ),

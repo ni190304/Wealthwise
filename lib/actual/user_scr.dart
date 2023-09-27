@@ -195,7 +195,7 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         elevation: 0,
         leading: Builder(
           builder: (BuildContext context) {
@@ -210,7 +210,7 @@ class _UserScreenState extends State<UserScreen> {
                 icon: Padding(
                   padding: const EdgeInsets.only(left: 7.0, top: 7.0),
                   child: CircleAvatar(
-                    radius: 20,
+                    radius: 40,
                     backgroundColor: Colors.black,
                     child: FutureBuilder<String?>(
                       future: user_dp_future, // Use the Future here
@@ -218,8 +218,8 @@ class _UserScreenState extends State<UserScreen> {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const SizedBox(
-                            height: 10,
-                            width: 10,
+                            height: 15,
+                            width: 15,
                             child: CircularProgressIndicator(
                               backgroundColor: Colors.white,
                             ),
@@ -229,8 +229,8 @@ class _UserScreenState extends State<UserScreen> {
                             child: Image.network(
                               snapshot.data!,
                               fit: BoxFit.cover,
-                              height: 39,
-                              width: 39,
+                              height: 49,
+                              width: 49,
                             ),
                           ); // Display the image if available
                         } else {
@@ -254,10 +254,11 @@ class _UserScreenState extends State<UserScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 0.0),
-              child: Text(
-                'Wealthwise',
-                style: namestyle2(),
-              ),
+              child: Container(
+                width: 225,
+                height: 120,
+                child: Image.asset('lib/pics/wealth.png'),
+              )
             ),
           ],
         ),
@@ -454,82 +455,8 @@ class _UserScreenState extends State<UserScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                ListTile(
-                  title: Text(
-                    'View Profile',
-                    style: namestyle1(),
-                  ),
-                  leading: const Icon(
-                    Icons.person_outline_outlined,
-                    size: 26,
-                    color: Colors.black,
-                  ),
-                ),
-                ExpansionTile(
-                  title: Text(
-                    'Module Analysis',
-                    style: namestyle1(),
-                  ),
-                  leading: const Icon(
-                    Icons.analytics_outlined,
-                    size: 26,
-                    color: Colors.black,
-                  ),
-                  childrenPadding: EdgeInsets.only(left: 90),
-                  children: [
-                    ListTile(
-                      contentPadding: EdgeInsets.all(5),
-                      title: Text(
-                        'Stocks Basics',
-                        style: namestyle4(),
-                      ),
-                      trailing: const Icon(
-                        Icons.account_balance_wallet_rounded,
-                        size: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                    ListTile(
-                      contentPadding: EdgeInsets.all(5),
-                      title: Text(
-                        'How to invest in Stocks',
-                        style: namestyle4(),
-                      ),
-                      trailing: const Icon(
-                        Icons.monetization_on,
-                        size: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                    ListTile(
-                      contentPadding: EdgeInsets.all(5),
-                      title: Text(
-                        'Loans Basics',
-                        style: namestyle4(),
-                      ),
-                      trailing: const Icon(
-                        Icons.credit_card,
-                        size: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                    ListTile(
-                      contentPadding: EdgeInsets.all(5),
-                      title: Text(
-                        'Insurance',
-                        style: namestyle4(),
-                      ),
-                      trailing: const Icon(
-                        Icons.show_chart,
-                        size: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 55,
-                ),
+                
+                
                 ListTile(
                   onTap: () {
                     FirebaseAuth.instance.signOut();

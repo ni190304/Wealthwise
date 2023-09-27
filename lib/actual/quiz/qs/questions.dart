@@ -181,5 +181,73 @@ const questions2 = [
   
 ];
 
+const questions3 = [
+  QuizQuestion(
+    'What is the primary difference between secured and unsecured loans?',
+    [
+       'Secured loans have lower interest rates, while unsecured loans have higher interest rates.',
+'Secured loans are used for business purposes, while unsecured loans are for personal use.',
+'Secured loans have a shorter repayment term, while unsecured loans have a longer term.',
+"Secured loans don't require collateral, while unsecured loans do."
+
+
+
+    ],
+  ),
+
+  QuizQuestion(
+    ' Which of the following is an example of an unsecured loan?',
+    [
+      'Mortgage loan',
+'Auto loan',
+'Personal loan',
+'Home equity loan'
+
+
+
+    ],
+  ),
+  QuizQuestion(
+      "What is the primary purpose of interest in a loan?",
+ [
+     'To make the lender richer.',
+"To cover the borrower's expenses."
+"To calculate the total loan amount.",
+"To compensate the lender for lending money.",
+
+
+
+  ]),
+  
+  QuizQuestion(
+      'Which type of loan typically has a longer loan term?',
+      [
+         
+'Payday loan',
+ 'Mortgage loan',
+'Auto loan',
+'Credit card debt',
+
+
+
+      ]),
+
+      QuizQuestion(
+      ' What is the significance of using a Loan EMI Calculator?',
+      [
+         'It helps you find the best loan deals in the market.',
+'It calculates the total loan amount you can borrow',
+'It calculates the monthly repayment amount and total interest for a loan.',
+"It provides information about the lender's financial stability."
+
+
+
+
+      ]),
+  
+];
+
+
+
 
 
