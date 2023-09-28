@@ -2,13 +2,12 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:wealthwise/alternate/edu_screen.dart';
-import 'package:wealthwise/user_scr.dart';
-import 'package:wealthwise/splash.dart';
+import 'package:wealthwise/other/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'actual/quiz/quizstart.dart';
-import 'actual/user_scr.dart';
+import '../actual/quiz/quizstart.dart';
+import '../actual/user_scr.dart';
 import 'auth.dart';
 
 class Start extends StatefulWidget {

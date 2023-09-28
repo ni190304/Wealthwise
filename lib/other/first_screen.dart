@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:wealthwise/start.dart';
+import 'package:wealthwise/other/start.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';

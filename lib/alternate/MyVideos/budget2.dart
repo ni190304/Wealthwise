@@ -5,9 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wealthwise/main.dart';
-import 'package:wealthwise/splash.dart';
-
-import '../../viditem.dart';
+import 'package:wealthwise/videos/viditem.dart';
 
 class Budget2 extends StatefulWidget {
   const Budget2({Key? key}) : super(key: key);

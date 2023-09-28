@@ -9,9 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wealthwise/alternate/home.dart';
 import 'package:wealthwise/alternate/your_videos.dart';
-import 'package:wealthwise/settings.dart';
 
 import '../designed_boxes/neubox2.dart';
+import '../other/settings.dart';
 import 'videoupload.dart';
 
 class TutorScreen extends StatefulWidget {

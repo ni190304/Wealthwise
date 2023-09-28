@@ -12,8 +12,6 @@ import 'package:wealthwise/actual/dashboard.dart';
 import 'package:wealthwise/actual/settings.dart';
 import 'package:wealthwise/alternate/home.dart';
 import 'package:wealthwise/alternate/your_videos.dart';
-import 'package:wealthwise/settings.dart';
-
 import '../alternate/videoupload.dart';
 import '../designed_boxes/neubox2.dart';
 import 'home.dart';

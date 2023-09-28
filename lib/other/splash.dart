@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wealthwise/start.dart';
+import 'package:wealthwise/other/start.dart';
 
 class Splash extends StatelessWidget {
   const Splash({Key? key});

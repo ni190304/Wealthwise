@@ -4,8 +4,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wealthwise/main.dart';
-import 'designed_boxes/neubox1.dart';
-
+import '../designed_boxes/neubox1.dart';
 
 class VideoItem extends StatefulWidget {
   String url;
@@ -248,7 +247,7 @@ class _VideoItemState extends State<VideoItem> {
                       //   ),
                       // ),
                       const Spacer(),
-          
+
                       IconButton(
                         onPressed: () {
                           setState(() {
